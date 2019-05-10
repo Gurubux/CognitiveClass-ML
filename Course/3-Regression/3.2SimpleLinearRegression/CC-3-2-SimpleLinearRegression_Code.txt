@@ -1,3 +1,8 @@
+Code 	- simple_linear_regression.py  
+DATASET - CO2EmmissionDataset
+GOAL 	- To predict CO2Emmission based on EngineSize
+
+
 # Step 1 : Import Model
 from sklearn.linear_model import LinearRegression
 
@@ -19,11 +24,15 @@ plt.plot(test_x, predicted_y, '-r')
 
 # Step 6 - Accuracy --> MSE, MAE, R2-Square
 from sklearn.metrics import r2_score
-print("Mean absolute error: %.2f" % np.mean(np.absolute(test_y_ - test_y)))
-print("Residual sum of squares (MSE): %.2f" % np.mean((test_y_ - test_y) ** 2))
+print("Mean absolute error: %.2f" % np.mean(np.absolute(test_y_ - test_y))) # mean_absolute_error(y, pred)
+print("Residual sum of squares (MSE): %.2f" % np.mean((test_y_ - test_y) ** 2))# mean_squared_error(y, pred)
 print("R-score: %.2f" % r2_score(test_y_ , test_y) )
 '''
 Mean absolute error: 22.56
 Residual sum of squares (MSE): 913.37
 R2-score: 0.70
 '''
+
+
+REFER
+http://www.stat.yale.edu/Courses/1997-98/101/linreg.htm
