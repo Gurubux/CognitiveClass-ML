@@ -1,0 +1,21 @@
+REGRESSION MODEL EVALUATION 
+Two types of evaluation approaches that can be used to achieve this goal.These approaches are: 
+	1. train and test on the same dataset, and 
+	2. train/test split.
+	
+
+Regression Evaluation Metrics
+	               ₙ
+	MAE   =  1/n   Σ | yᵢ - ŷ |
+			      ᶦ⁼¹
+                   ₙ
+	MSE   =  1/n   Σ (yᵢ - ŷ )²
+			      ᶦ⁼¹
+	R² Score  = 1 - RSS/TSS
+				where,
+					RSS =  Residual sum of squares (Difference from the Predictions)
+					TSS =  Total sum of squares (Difference from the mean)
+
+	3. K Fold 					
+		cross_val_score()
+		cross_val_score().mean()
