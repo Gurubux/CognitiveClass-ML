@@ -34,3 +34,8 @@ REGRESSION EVALUATION METRICS
 	
 	R² Score  = 1 - RSS/TSS  =  1 - RSE
 	It represents how close the data values are to the fitted regression line.			
+
+
+	                            ( n - 1 )
+    Adj R²    = 1 - (1 - R²) -----------------
+                              ( n - p - 1 )
