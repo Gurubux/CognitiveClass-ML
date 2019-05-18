@@ -34,7 +34,7 @@ REGRESSION EVALUATION METRICS
 	
 	R² Score  = 1 - RSS/TSS  =  1 - RSE
 	It represents how close the data values are to the fitted regression line.			
-
+	R-squared values, like 0.73, can be translated into percentages by simply multiplying them by 100. An R-squared value of 0.73 means that there is a 73% reduction in variation around a fitted line compared to the mean. If R-squared was 1, then there would be a 100% reduction and if R-squared = 0, there would be a 0% reduction.
 
 	                            ( n - 1 )
     Adj R²    = 1 - (1 - R²) -----------------
