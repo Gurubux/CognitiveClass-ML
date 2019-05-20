@@ -22,11 +22,17 @@ plt.plot(train_x, regr.coef_[0][0]*train_x + regr.intercept_[0], '-r')
 plt.scatter(test_x, test_y,  color='blue')
 plt.plot(test_x, predicted_y, '-r')
 
-# Step 6 - Accuracy --> MSE, MAE, R2-Square
+# Step 6 - Accuracy --> MSE, MAE, R2-Square,RMSE,P-value
 from sklearn.metrics import r2_score
+from scipy import stats
 print("Mean absolute error: %.2f" % np.mean(np.absolute(test_y_ - test_y))) # mean_absolute_error(y, pred)
 print("Residual sum of squares (MSE): %.2f" % np.mean((test_y_ - test_y) ** 2))# mean_squared_error(y, pred)
 print("R-score: %.2f" % r2_score(test_y_ , test_y) )
+ss_mean = sum((y - np.mean(y))**2)
+ss_simple = sum((y - reg.predict(X))**2)
+f_simple = ((ss_mean - ss_simple) / ((len(data.columns)+1) - 1))/ (ss_simple/ (len(data) - (len(data.columns)+1)))
+print("P-Value: %.3f" %(1-stats.f.cdf(f_simple,1,7)))
+
 '''
 Mean absolute error: 22.56
 Residual sum of squares (MSE): 913.37

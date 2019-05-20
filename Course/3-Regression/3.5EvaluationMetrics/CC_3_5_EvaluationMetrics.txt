@@ -33,7 +33,9 @@ REGRESSION EVALUATION METRICS
 									   ᶦ⁼¹	
 	
 	R² Score  = (Variation(mean) - Variation(Fitted Line)) / Variation(mean) 
-			  = (TSS  			 - RSS) 				   / TSS  
+			  		( TSS - RSS ) 
+			  =    ---------------
+					   ( TSS )
 			  = 1 - RSS/TSS  
 			  = 1 - RSE
 	It represents how close the data values are to the fitted regression line.			
@@ -43,3 +45,25 @@ REGRESSION EVALUATION METRICS
 	                            ( n - 1 )
     Adj R²    = 1 - (1 - R²) -----------------
                               ( n - p - 1 )
+
+
+    F-value 
+                              
+    	TSS = ss_mean = sum((y - np.mean(y))**2)
+		RSS = ss_simple = sum((y - reg.predict(X))**2)
+		
+		
+					( TSS - RSS ) (P𝒻ᵢₜ - Pₘₑₐₙ)
+		F-value = -------------------------------
+					   ( RSS ) (n - P𝒻ᵢₜ)
+
+
+	P-value
+			= 1 - CDF(F-value , DoF1 		   , DoF2 )	
+			= 1 - CDF(F-value , Extra Features , (n - P𝒻ᵢₜ) )	
+			= 1 - CDF(F-value , (P𝒻ᵢₜ - Pₘₑₐₙ)  , (n - P𝒻ᵢₜ) )	
+
+
+
+	
+	
