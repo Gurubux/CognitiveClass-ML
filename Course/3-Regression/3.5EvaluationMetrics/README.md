@@ -1,5 +1,6 @@
 REGRESSION EVALUATION METRICS
-	      						 ₙ
+
+							 ₙ
 	MAE (Mean Absolute Error) 		=  1/n   Σ | yᵢ - ŷ |
 		  					ᶦ⁼¹
          						 ₙ
