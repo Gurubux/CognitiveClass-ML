@@ -5,3 +5,4 @@ Two types of evaluation approaches that can be used to achieve this goal.These a
 	3. K Fold 					
 		cross_val_score()
 		cross_val_score().mean()
+	4. ShuffleSplit()
