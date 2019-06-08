@@ -42,3 +42,12 @@ R2-score: 0.70
 
 REFER
 http://www.stat.yale.edu/Courses/1997-98/101/linreg.htm
+
+-------------------------------------------------------------------------------------------------------------------
+CODE
+https://github.com/Gurubux/CognitiveClass-ML/blob/master/Course/3-Regression/3.2SimpleLinearRegression/ML0101EN_Reg_Simple_Linear_Regression_Co2_py_v1.ipynb
+
+
+-------------------------------------------------------------------------------------------------------------------
+EXP: Linear Regression
+https://github.com/Gurubux/CognitiveClass-ML/blob/master/Course/3-Regression/3.2SimpleLinearRegression/CC-3-2-SimpleLinearRegression.odt
