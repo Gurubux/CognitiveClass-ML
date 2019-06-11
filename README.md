@@ -24,3 +24,7 @@
   
 <a href='https://cognitiveclass.ai/courses/machine-learning-with-python/'>Cognitive Class</a>
 Instructor: <a href'https://www.linkedin.com/in/saeedaghabozorgi'>Saeed Aghabozorgi</a>
+
+</br>
+PS : 
+To Open .ipynb files (If unable to view on github) copy link of file.ipynb and paste it on the web site https://nbviewer.jupyter.org/
