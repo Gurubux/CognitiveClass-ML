@@ -1,3 +1,12 @@
+"https://stattrek.com/multiple-regression/regression-coefficients.aspx"
+@ Simple Linear Regression
+	ŷ = b0 + b1x
+	b1 = Σ [ (xi - x)(yi - y) ] / Σ [ (xi - x)2]
+	b0 = y - b1 * x
+
+
+
+
 Code 	- simple_linear_regression.py  
 DATASET - CO2EmmissionDataset
 GOAL 	- To predict CO2Emmission based on EngineSize

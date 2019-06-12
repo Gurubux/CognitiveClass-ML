@@ -56,7 +56,7 @@ REGRESSION EVALUATION METRICS
 					( TSS - RSS ) (P𝒻ᵢₜ - Pₘₑₐₙ)
 		F-value = -------------------------------
 					   ( RSS ) (n - P𝒻ᵢₜ)
-
+#https://www.youtube.com/watch?v=nk2CQITm_eo
 
 	P-value
 			= 1 - CDF(F-value , DoF1 		   , DoF2 )	
@@ -64,6 +64,8 @@ REGRESSION EVALUATION METRICS
 			= 1 - CDF(F-value , (P𝒻ᵢₜ - Pₘₑₐₙ)  , (n - P𝒻ᵢₜ) )	
 
 
-
+P𝒻ᵢₜ 	-> Parameters in the regression Line
+Pₘₑₐₙ 	-> All the parameters become 0 except intercept thus Pₘₑₐₙ is usually 1
+n 		-> Number of data points
 	
 	

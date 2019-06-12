@@ -1,1 +1,11 @@
 Basically, adding too many independent variables without any theoretical justification may result in an over-fit model. 
+
+
+"https://stattrek.com/multiple-regression/regression-coefficients.aspx"
+@ Multiple Linear Regression
+	ŷ = b0 + b1x1 + b2x2 + … + bk-1xk-1 + bkxk
+	Y = Xb
+	X`Y = X`Xb 
+		Here, matrix X` is the transpose of matrix X. To solve for regression coefficients, simply pre-multiply by the inverse of X`X:
+	(X`X)-1X`Xb = (X`X)-1X`Y
+	b 			= (X`X)-1X`Y
