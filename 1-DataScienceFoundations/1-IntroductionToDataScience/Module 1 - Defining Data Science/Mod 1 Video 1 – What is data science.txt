@@ -1,0 +1,57 @@
+- Data science is a process, not an event.
+It is the process of using data
+to understand different things,
+to understand the world.
+- For me, it's when you have a model,
+or a hypothesis of a problem,
+and you try to validate that hypothesis or model
+with your data.
+- Data science is the art of uncovering
+the insights and trends that are hiding behind data.
+- It's when you translate data into a story,
+so you use the storytelling to generate insights.
+And with these insights,
+you can make strategic...
+choices for a company or institution.
+- Data science is a field about processes and systems,
+to extract data from various forms,
+whether it is an unstructured or structured form.
+- Data science is the study of data,
+like biological sciences are the study of biology;
+physical sciences, it's the study of physical reactions.
+Data is real, data has real properties,
+and we need to study them,
+if we're gonna work on them.
+- Data science involves data and some science.
+The definition, or the name,
+came up in the 80s and 90s when some professors
+were looking into the statistics curriculum,
+and they thought it would be better to call it data science.
+But what is data science?
+I see data science as one's attempt to work with data
+to find answers to questions that they are exploring.
+In a nutshell, it's more about data
+than it is about science.
+If you have data, and you have curiosity,
+and you're working with data,
+and you're manipulating it,
+you're exploring it,
+the very exercise of going through analyzing data,
+trying to get some answers from it, is data science.
+Data science is relevant today
+because we have tons of data available.
+We used to worry about lack of data;
+now we have a data deluge.
+In the past, we didn't have algorithms;
+now we have algorithms.
+In the past, the software was expensive;
+now it's open source and free.
+In the past, we couldn't store large amounts of data;
+now, for a fraction of the cost,
+we can have gazillions of data sets for very low costs,
+so the tools to work with data,
+the very availability of data,
+and the ability to store and analyze data,
+it's all cheap, it's all available,
+it's all ubiquitous, it's here.
+There's never been a better time to be a data scientist.

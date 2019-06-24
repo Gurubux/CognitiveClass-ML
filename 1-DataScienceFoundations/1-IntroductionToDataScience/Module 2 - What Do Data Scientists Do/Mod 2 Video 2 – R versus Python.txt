@@ -1,0 +1,33 @@
+As I have an engineering background,
+I started programming with C, then I went to Matlab,
+and eventually to Python.
+I usually use Matlab, C, and C++,
+but for data science I use Python.
+- R and Python.
+- R.
+- I'm an R evangelist.
+I was at the useR Conference last year
+and I think it's got one of the best communities,
+I'm also very fond of SQL and I think people don't spend
+enough time appreciating it in its various incarnations.
+- I primarily work with R and Stata.
+I do not work a lot with big data so for the kind
+of data sets I have, there are a few million observations,
+even the hundreds of millions of observations
+then I can work with with the existing Stata and R and SPSS,
+I don't have a problem with it,
+but as I said, if I were to work with large data sets,
+I would use different tools.
+My preferred tools are the three; R, Stata, and SPSS.
+I also work with spacial data a lot
+so these are data sets which have a geographical
+component to it, so imagine 40 million Californians
+and 40 million people, some of them in California,
+some of them in the neighboring states,
+and what if I know the exact home address
+of each and everyone of them and where they work.
+And that would be an amazing GIS,
+spacial geographic information systems database.
+So I work with those as well and my tool that I use
+is called Maptitude and MapInfo,
+these are the two I use the most.

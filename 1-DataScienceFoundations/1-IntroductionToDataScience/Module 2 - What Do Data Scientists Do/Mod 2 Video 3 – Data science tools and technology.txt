@@ -1,0 +1,126 @@
+- I really enjoy regression.
+I'd say regression was maybe one of the first concepts that
+really helped me understand data, so I enjoy regression.
+- I really like data visualization.
+I think it's a key element for people to get
+across their message to people
+that don't understand that well what data science is.
+- Artificial neural networks.
+- I'm really passionate about neural networks
+because we have a lot to learn from nature
+so when we are trying to mimic our brain,
+I think that we can do some applications with this behavior,
+this biological behavior in algorithms.
+- Data visualization with R, I love to do this.
+- Nearest neighbor, it's the simplest,
+but it just gets the best results so many more times,
+than some overblown, overworked algorithm
+that's just as likely to over fit
+as it is to make a good fit.
+- So, structured data is more like tabular data,
+things that you're familiar with in Microsoft Excel format,
+you've got rows and columns,
+and that's called structured data.
+Unstructured data is basically data that is coming from
+mostly from web, where it's not tabular.
+It is not in rows and columns, it's text.
+Sometimes it's video and audio.
+You would have to deploy more sophisticated algorithms
+to extract data.
+In fact, a lot of times, we take unstructured data
+and spend a great deal of time and effort to get
+some structure out of it and then analyze it.
+If you have something which just fits nicely into
+tables and columns and rows go ahead.
+That's your structured data,
+but if you see if it's a weblog,
+or if you're trying to get information out of webpages,
+and you've got a gazillion webpages,
+that's unstructured data,
+that would require a little bit more effort
+to get information out of it.
+Machine learning is basically a set of these advanced tools
+people use to find answers.
+I'm not a big fan of machine learning,
+and I'll give you my bias right now.
+Imagine there's an island
+and there are about 45,000 people who live on that island.
+It's cut off from the rest of the world,
+nobody can swim into the island, or swim out of the island.
+Now imagine that island had a murder,
+and you're the detective who's been tasked
+with finding who the culprit is.
+Now, there's various approaches you can take.
+One approach is you say, well, whoever killed this person
+is on this island.
+So there are 45,000 people and there are 45,000 suspects.
+I'm going to go one by one asking each person
+until I find the suspect, right.
+That's machine learning, because you have no other reason,
+no other assumptions, no other hypothesis, no other feeling.
+You say, I don't know anything.
+I'm just going to throw everything into my model
+and see who the culprit is.
+Sometimes you get to the culprit, sometimes you don't,
+but it would take time.
+Machine learning is basically saying when you do not have
+many assumptions about your data, and you're short of
+knowing a lot about your data,
+you just throw everything into this model,
+and see what comes out of it.
+It's more of a black box approach.
+I know that a large number of professionals live by it.
+I, on the other hand, like to look at data with my own
+preconceived notions, because it is said, a data scientist
+is someone who is very judgmental.
+That person, a data scientist is one who has an opinion
+about data.
+Who has an opinion about the phenomena they're learning,
+or they're investigating.
+They cannot simply believe
+that I'm going to have a kitchen sink approach,
+I'm going to dump everything in the model.
+Machine learning is basically saying, dump everything,
+see what comes out of it.
+There are thousands of books written on regression,
+and millions of lectures delivered on regression.
+And I always feel that they don't do a good job
+of explaining regression, because they get into data
+and models and statistical distributions.
+Let's forget about it, let me explain regression
+in the simplest possible terms.
+If you have ever taken a cab ride, a taxi ride,
+you understand regression.
+Here's how it works.
+The moment you sit in a cab ride, in a cab,
+you see that there's a fixed amount there, it says 2 dollars 50 cents, $2.50
+You rather that the cab moves or you get off,
+this is what you owe to the driver,
+the moment you step into a cab.
+That's a constant, you have to pay that amount,
+if you have stepped into a cab.
+Then as it starts moving, for every meter or 100 meters,
+the fare increases by a certain amount.
+So, there's a fraction, there's a relationship
+between distance and the amount you would pay,
+above and beyond that constant.
+If you're not moving, and you're stuck in traffic,
+then every additional minute, you have to pay more.
+As the minutes increase, your fare increases,
+as the distance increases, your fare increases,
+and while all this is happening, you've already
+paid a base fare, which is the constant.
+This is what regression is.
+Regression tells you what the base fare is
+and what is the relationship between time
+and the fare you have paid
+and the distance you have traveled
+and the fare you have paid.
+Because in the absence of knowing those relationships,
+and just knowing how much people traveled for,
+and how much they paid,
+regression allows you to compute
+that constant that you didn't know it was 2.50,
+and it would compute the relationship between the fare
+and the distance, and the fare and the time.
+That's a regression.

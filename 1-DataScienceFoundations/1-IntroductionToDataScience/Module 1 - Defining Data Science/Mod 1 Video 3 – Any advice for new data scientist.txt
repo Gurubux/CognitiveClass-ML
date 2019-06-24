@@ -1,0 +1,66 @@
+- My advice to an aspiring data scientist is to be curious,
+extremely argumentative,
+judgmental.
+Curiosity is absolutely must.
+If you're not curious,
+you would not know what to do with the data.
+Judgmental because if you do not have
+preconceived notions about things,
+you wouldn't know where to begin.
+Argumentative because if you can argue
+then you can plead a case,
+at least you can start somewhere.
+And then you learn from data
+and then you modify your assumptions and hypothesis,
+and your data would help you learn.
+And you may start at the wrong point,
+you may say that I thought I believed this
+but now with data I know this,
+so this allows you a learning process.
+So curiosity, being able to take a position,
+strong position, and then moving forward with it.
+The other thing that a data scientist would need is
+some comfort and flexibility with analytics platforms.
+Some software, some computing platform but that's secondary.
+The most important thing is curiosity
+and the ability to take positions.
+Once you have done that,
+once you've analyzed, then you've got some answers.
+And that's the last thing that a data scientist needs
+and that is the ability to tell a story.
+That once you have your analytics,
+once you have your tabulations,
+now you should be able to tell a great story from it.
+Because if you don't tell a great story from it,
+your findings will remain hidden,
+it will remain buried, nobody would know,
+but your rise to prominence is pretty much relying on your
+ability to tell great stories.
+A starting point would be to see
+what is your competitive advantage?
+Do you want to be a data scientist in any field
+or a specific field because
+let's say you want to be a data scientist and work for an
+IT firm or a web-based or internet-based firm.
+Then you need a different set of skills.
+And if you want to be a data scientist for
+let's say in the health industry,
+then you need different sets of skills.
+So figure out first what your interest is
+and what is your competitive advantage.
+Your competitive advantage is not
+necessarily going to be your analytical skills.
+Your competitive advantage is your understanding of
+some aspect of life where you exceed
+beyond others in understanding that.
+Maybe it's film, maybe it's retail,
+maybe it's health, maybe it's computers.
+Once you have figured out where your expertise lies,
+then you start acquiring analytical skills,
+what platforms to learn.
+And those platforms, those tools would be specific to the
+industry that you're interested in.
+And then once you have got some proficiency in the tools,
+the next thing would be to apply your skills to
+real problems and then tell rest of the world
+what you can do with it.
