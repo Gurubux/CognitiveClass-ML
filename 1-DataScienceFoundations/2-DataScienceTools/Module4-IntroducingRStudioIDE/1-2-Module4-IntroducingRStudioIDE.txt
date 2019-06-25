@@ -5,3 +5,27 @@ Module 4 - Introducing RStudio IDE
 	RStudio Environment and History
 	Apache Spark in RStudio IDE
 	LAB: Getting Started with RStudio IDE
+
+------------------------------------------------------------------
+WHAT IS RSTUDIO IDE?
+Another great feature is that you'll also have access to Apache Spark. By simply typing "sc" from the Editor or Console and running it, you'll see that you can run SparkR code to analyze big data.
+Taking it a step further, R also gives you access to Shiny library, which you can use to make your visualizations interactive!
+Using Shiny, you can create all sorts of web-based interactive apps just using R code.
+
+
+------------------------------------------------------------------
+UPLOADING FILES, INSTALLING PACKAGES AND LOADING LIBRARIES IN RSTUDIO IDE
+------------------------------------------------------------------
+GETTING STARTED WITH RSTUDIO IDE
+------------------------------------------------------------------
+RSTUDIO ENVIRONMENT AND HISTORY
+
+sc
+mtcars
+------------------------------------------------------------------
+APACHE SPARK IN RSTUDIO IDE
+------------------------------------------------------------------
+LAB: GETTING STARTED WITH RSTUDIO IDE
+
+The command to check that Apache Spark is running with RStudio IDE and other notebooks is:
+ Type “sc” and run it 

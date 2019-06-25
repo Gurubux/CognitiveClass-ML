@@ -4,3 +4,21 @@ Module 2 -Introducing Jupyter Notebooks
 	Data and Notebooks in Jupyter
 	Sharing your Jupyter Notebooks and data
 	LAB: Getting Started with Jupyter Notebooks
+
+
+------------------------------------------------------------------WHAT ARE JUPYTER NOTEBOOKS?
+Jupiter notebooks are like documents where you can execute chunks of programming code one chunk at a time. You can do everything from creating interactive maps to creating interesting data visualizations and even embedding videos.
+
+Jupiter notebooks are open-source and was designed for interactive data science and scientific computing. Data Scientists used Jupiter notebooks because in data science you are often exploring your data or building models and needing to see the outputs of parts of your code quite frequently whic Jupiter notebooks enables. 
+
+Jupiter notebooks were also designed to be shared with others you can tell stories in Jupiter notebooks with your data by combining your code with explanatory text output from your code images and videos.
+
+------------------------------------------------------------------
+GETTING STARTED WITH JUPYTER LABs
+So just to clarify here when I am talkinag about Jupyter notebook I am referring to the actual whole file when I am talking about Jupyter Lab then that is the environment that organizes the various Jupyter Notebooks that allows me to run them.
+------------------------------------------------------------------
+DATA AND NOTEBOOKS IN JUPYTER
+------------------------------------------------------------------
+SHARING YOUR JUPYTER NOTEBOOKS AND DATA
+------------------------------------------------------------------
+LAB: GETTING STARTED WITH JUPYTER NOTEBOOKS

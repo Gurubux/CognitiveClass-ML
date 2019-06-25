@@ -5,3 +5,44 @@ Module 3 - Introducing Zeppelin Notebooks
 	Managing your Interpreters in Zeppelin
 	Apache Spark in Zeppelin Notebooks
 	LAB: Getting Started with Apache Zeppelin Notebooks
+
+------------------------------------------------------------------
+WHAT ARE ZEPPELIN NOTEBOOKS?
+The Zeppelin interpreter concept allows any language or data-processing-backend to be plugged into Zeppelin.
+Currently Apache Zeppelin supports many interpreters such as Apache Spark, Python, JDBC, Markdown and Shell.
+Apache Zeppelin, in particular, provides built-in "Apache Spark"integration.
+
+Apache Zeppelin with Spark integration provides a number of great features, including : 
+Automatic SparkContext and SQLContext injection Runtime jar dependency loading from local filesystem or maven repository, as well as Canceling job and progress display
+
+For data visualization, here are some basic charts already included in Apache Zeppelin.
+Visualizations are not limited to SparkSQL query in fact, any output from any language backend can be recognized and visualized.
+For Pivot charts, Apache Zeppelin aggregates values and displays them in a pivot chart with simple drag and drop.
+You can easily create charts with multiple aggregated values including sum, count, average, minimum, and maximum.
+
+
+------------------------------------------------------------------
+ZEPPELIN FOR SCALA
+
+------------------------------------------------------------------
+GETTING STARTED WITH ZEPPELIN
+
+------------------------------------------------------------------
+MANAGING YOUR INTERPRETERS IN ZEPPELIN
+
+------------------------------------------------------------------
+APACHE SPARK IN ZEPPELIN NOTEBOOKS
+http://zeppelin.apache.org/docs/latest/interpreter/spark.html#zeppelincontext
+
+
+------------------------------------------------------------------
+LAB: GETTING STARTED WITH APACHE ZEPPELIN NOTEBOOKS
+------------------------------------------------------------------
+1. Apache Zeppelin lets you:
+ Switch between multiple languages.  Display your output.  Show your visualizations within the Zeppelin notebook.  Document your code.
+
+2. MATLAB is NOT an interpreter in supported by Zeppelin?
+
+3. Major benefits to using Zeppelin over Jupyter notebooks include:
+ - Some visualizations are automatically generated in Zeppelin, thus minimizing code required  
+ - You can use multiple languages in the same notebook in Zeppelin, but not in Jupyter
