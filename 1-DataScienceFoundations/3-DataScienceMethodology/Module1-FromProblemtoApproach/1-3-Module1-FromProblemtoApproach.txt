@@ -1,0 +1,21 @@
+Module 1: From Problem to Approach
+	Business Understanding
+	Analytic Approach
+
+In this lesson you will learn about:
+	Why we are interested in data science.
+	What a methodology is, and why data scientists need a methodology.
+	The data science methodology and its flowchart. 
+	How to apply business understanding and the analytic approach to any data science problem.
+	
+https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/1-DataScienceFoundations/3-DataScienceMethodology/Module1-FromProblemtoApproach/FromUnderstandingToApproach.PNG	
+------------------------------------------------------------------
+BUSINESS UNDERSTANDING
+Data science methodology begins with spending the time to seek clarification, to attain what can be referred to as a business understanding.
+
+Establishing a clearly defined question starts with understanding the GOAL of the person who is asking the question.
+
+
+
+------------------------------------------------------------------
+ANALYTIC APPROACH
