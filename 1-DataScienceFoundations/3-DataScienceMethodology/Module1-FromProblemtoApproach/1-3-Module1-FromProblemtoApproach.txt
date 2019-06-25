@@ -13,9 +13,114 @@ https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/1-DataScience
 BUSINESS UNDERSTANDING
 Data science methodology begins with spending the time to seek clarification, to attain what can be referred to as a business understanding.
 
+-Seeking Clarification
 Establishing a clearly defined question starts with understanding the GOAL of the person who is asking the question.
+For example, if a business owner asks: "How can we reduce the costs of performing an activity?" We need to understand, is the goal to improve the efficiency of the activity? Or is it to increase the businesses profitability?
+
+-Supporting The Goal
+Once the goal is clarified, the next piece of the puzzle is to figure out the objectives that are in support of the goal.
+By breaking down the objectives, structured discussions can take place where priorities can be identified in a way that can lead to organizing and planning on how to tackle the problem.
 
 
+-Getting Stakeholder "buy-in" and support
+Depending on the problem, different stakeholders will need to be engaged in the discussion to help determine requirements and clarify questions.
+
+
+Case Study to apply Business Understanding
+In the case study, the question being asked is: What is the best way to allocate the limited healthcare budget to maximize its use in providing quality care?
+This question is one that became a hot topic for an American healthcare insurance provider. As public funding for readmissions was decreasing, this insurance company was at risk of having to make up for the cost difference,which could potentially increase rates for its customers. Knowing that raising insurance rates was not going to be a popular move, the insurance company sat down with the health care authorities in its region and brought in IBM data scientists to see how data science could be applied to the question at hand.
+
+
+
+Before even starting to collect data, the goals and objectives needed to be defined.
+Define goals
+	-To provide quality care without increasing costs
+Define Objectives
+	-To review the process to identify ineffectiveness
+After spending time to determine the goals and objectives, the team prioritized "patient readmissions" as an effective area for review.
+
+With the goals and objectives in mind, it was found that approximately 30% of individuals who finish rehab treatment would be readmitted to a rehab center within one year; and that 50% would be readmitted within five years.
+
+
+After reviewing some records, it was discovered that the patients with congestive heart failure were at the top of the readmission list. It was further determined that a decision-tree model could be applied to review this scenario, to determine why this was occurring.
+To gain the business understanding that would guide the analytics team in formulating and performing their first project, the IBM Data scientists, proposed and delivered an on-site workshop to kick things off.
+The key business sponsors involvement throughout the project was critical, in that the sponsor:
+	-Set overall direction
+	-Remained engaged and provided guidance.
+	-Ensured necessary support, where needed.
+
+
+
+Finally, four business requirements were identified for whatever model would be built.
+Namely:
+	1.Predicting readmission outcomes for those patients with Congestive Heart Failure(Y or N)
+	2.Predicting readmission risk.
+	3.Understanding the combination of events that led to the predicted outcome
+	4.Applying an easy-to-understand process to new patients, regarding their readmission risk.
 
 ------------------------------------------------------------------
 ANALYTIC APPROACH
+1. Descriptive
+	Current Status
+
+2. Diagnostic (Statistical Analysis)
+	What happened?
+	Why is this happening?
+
+3. Predictive (Forecasting)
+	What if these trends continue?
+	What will happen next?
+
+4. Prescriptive
+	How do we solve it?
+
+Descriptive Analytics: A set of technologies and processes that use data to understand and analyze business performance
+Predictive Analytics: The extensive use of data and mathematical techniques to uncover explanatory and predictive models of business 			performance representing the inherit relationship between data inputs and outputs/outcomes.
+Prescriptive Analytics: A set of mathematical techniques that computationally determine a set of high-value alternative actions or 				decisions given a complex set of objectives, requirements, and constraints, with the goal of improving business performance.
+
+
+
+Descriptive analytics can be classified into three areas that answer certain kinds of questions:
+	Standard reporting and dashboards: What happened? How does it compare to our plan? What is happening now?
+	Ad-hoc reporting: How many? How often? Where?
+	Analysis/query/drill-down: What exactly is the problem? Why is it happening?
+
+
+Predictive analytics can be classified into six categories:
+	1.Data mining: What data is correlated with other data?
+	2.Pattern recognition and alerts: When should I take action to correct or adjust a process or piece of equipment?
+	3.Monte-Carlo simulation: What could happen?
+	4.Forecasting: What if these trends continue?
+	5.Root cause analysis: Why did something happen?
+	6.Predictive modeling: What will happen next if?
+
+
+Prescriptive analytics, which is part of “advanced analytics,” is based on the concept of optimization, which can be divided into two areas:
+	1. Optimization: How can we achieve the best outcome?
+	2. Stochastic optimization: How can we achieve the best outcome and address uncertainty in the data to make better decisions?
+
+
+If the question is to determine probabilities of an action, then a "PREDICTIVE MODEL" might be used.
+
+If the question is to show relationships, a "DESCRIPTIVE APPROACH" maybe be required.
+This would be one that would look at clusters of similar activities based on events and preferences.
+
+"STATISTICAL ANALYSIS" applies to problems that require counts. For example if the question requires a yes/ no answer, then a classification approach to predicting a response would be suitable.
+
+Machine Learning is a field of study that gives computers the ability to learn without being explicitly programmed.
+Machine Learning can be used to identify relationships and trends in data that might otherwise not be accessible or identified.
+In the case where the question is to learn about human behaviour, then an appropriate response would be to use "CLUSTERING ASSOCIATION APPROACHES". 
+
+
+"CASE STUDY"
+So now, let`s look at the case study related to applying Analytic Approach.
+For the case study, a decision tree CLASSIFICATION MODEL was used to identify the combination of conditions leading to each patient`s outcome.
+
+In this approach, examining the variables in each of the nodes along each path to a leaf, led to a respective threshold value.
+This means the decision tree classifier provides both the predicted outcome, as well as the likelihood of that outcome, based on the proportion at the dominant outcome, yes or no, in each group.
+From this information, the analysts can obtain the readmission risk, or the likelihood of a yes for each patient. If the dominant outcome is yes, then the risk is simply the proportion of yes patients in the leaf.
+If it is no, then the risk is 1 minus the proportion of no patients in the leaf.
+
+A decision tree classification model is easy for non-data scientists to understand and apply, to score new patients for their risk of readmission.
+Clinicians can readily see what conditions are causing a patient to be scored as high-risk and multiple models can be built and applied at various points during hospital stay.
+This gives a moving picture of the patient`s risk and how it is evolving with the various treatments being applied. For these reasons, the decision tree classification approach was chosen for building the "Congestive Heart Failure readmission model."
