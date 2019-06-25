@@ -1,8 +1,41 @@
 Module 2: From Requirements to Collection 
 	Data Requirements
 	Data Collection
-
+"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/1-DataScienceFoundations/3-DataScienceMethodology/Module1-FromProblemtoApproach/FromUnderstandingToApproach.PNG	"
 ------------------------------------------------------------------
 DATA REQUIREMENTS
 ------------------------------------------------------------------
 DATA COLLECTION
+
+
+-------------------------------------------------------------------
+Labs - https://labs.cognitiveclass.ai/tools/jupyterlab/    DS0103EN
+
+import pandas as pd # download library to read data into dataframe
+pd.set_option('display.max_columns', None)
+
+recipes = pd.read_csv("https://s3-api.us-geo.objectstorage.softlayer.net/cf-courses-data/CognitiveClass/DS0103EN/labs/data/recipes.csv")
+
+print("Data read into dataframe!") # takes about 30 seconds
+
+recipes.head()
+
+recipes.shape
+
+
+
+Now that the data collection stage is complete, data scientists typically use descriptive statistics and visualization techniques to better understand the data and get acquainted with it. Data scientists, essentially, explore the data to:
+
+understand its content,
+assess its quality,
+discover any interesting preliminary insights, and,
+determine whether additional data is necessary to fill any gaps in the data.
+
+----------------------------------------------------------------------------
+If a problem is a dish, then data is an ingredient. If a problem is a dish, then data is an ingredient.
+
+A data requirement is the initial set of ingredients.
+
+Data scientists determine how to prepare the data.  
+Data scientists identify the data that is required for data modeling.  
+Data scientists determine how to collect the data.

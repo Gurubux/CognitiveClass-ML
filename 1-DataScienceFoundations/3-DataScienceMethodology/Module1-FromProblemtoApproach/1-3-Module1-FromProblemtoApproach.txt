@@ -8,7 +8,7 @@ In this lesson you will learn about:
 	The data science methodology and its flowchart. 
 	How to apply business understanding and the analytic approach to any data science problem.
 	
-https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/1-DataScienceFoundations/3-DataScienceMethodology/Module1-FromProblemtoApproach/FromUnderstandingToApproach.PNG	
+"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/1-DataScienceFoundations/3-DataScienceMethodology/Module1-FromProblemtoApproach/FromUnderstandingToApproach.PNG	"
 ------------------------------------------------------------------
 BUSINESS UNDERSTANDING
 Data science methodology begins with spending the time to seek clarification, to attain what can be referred to as a business understanding.
@@ -124,3 +124,37 @@ If it is no, then the risk is 1 minus the proportion of no patients in the leaf.
 A decision tree classification model is easy for non-data scientists to understand and apply, to score new patients for their risk of readmission.
 Clinicians can readily see what conditions are causing a patient to be scored as high-risk and multiple models can be built and applied at various points during hospital stay.
 This gives a moving picture of the patient`s risk and how it is evolving with the various treatments being applied. For these reasons, the decision tree classification approach was chosen for building the "Congestive Heart Failure readmission model."
+
+
+-----------------------------------------------------------------------------------
+LAB - AUTOMATING THE PROCESS OF FIGURING OUT THE CUISINE OF A GIVEN DISH OR RECIPE -  Refer DS0103EN in https://labs.cognitiveclass.ai/tools/jupyterlab/
+
+Can we predict the cuisine of a given dish using the name of the dish only?
+	"NO"
+
+For example, the following dish names were taken from the menu of a local restaurant in Toronto, Ontario in Canada.
+1. Beast
+2. 2 PM
+3. 4 Minute
+Are you able to tell the cuisine of these dishes?
+	"NO"
+
+What about by appearance only? Yes or No
+	"NO"
+
+What about determining the cuisine of a dish based on its ingredients?
+	"potentially Yes"
+
+
+So why are we interested in data science?
+Once the business problem has been clearly stated, the data scientist can define the analytic approach to solve the problem. This step entails expressing the problem in the context of statistical and machine-learning techniques, so that the entity or stakeholders with the problem can identify the most suitable techniques for the desired outcome.
+
+Why is the analytic approach stage important?
+	"Because it helps identify what type of patterns will be needed to address the question most effectively."
+---------------------------------------------------------------------------
+Graded question
+A methodology is a system of methods used in a particular area of study or activity. A methodology is a system of methods used in a particular area of study or activity. - correct
+
+The data science methodology described in this course is outlined by John Rollins from IBM. 
+
+The first stage of the data science methodology is business understanding.
