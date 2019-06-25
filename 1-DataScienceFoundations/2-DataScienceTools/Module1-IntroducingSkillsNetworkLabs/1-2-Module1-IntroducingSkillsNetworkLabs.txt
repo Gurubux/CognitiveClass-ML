@@ -1,0 +1,21 @@
+Module 1 -Introducing Skills Network Labs
+	Learning Objectives current section
+	What is Cognitive Class Labs? 
+	Account features
+	Creating an account
+	Managing data within My Data
+	Lab - Getting Started with the Data Science Tools	
+------------------------------------------------------------------
+LEARNING OBJECTIVES CURRENT SECTION
+
+------------------------------------------------------------------WHAT IS COGNITIVE CLASS LABS? 
+https://labs.cognitiveclass.ai/
+
+
+------------------------------------------------------------------ACCOUNT FEATURES
+Zeppelin Notebooks
+Jupyter Notebooks
+RStudio
+------------------------------------------------------------------CREATING AN ACCOUNT
+------------------------------------------------------------------MANAGING DATA WITHIN MY DATA
+------------------------------------------------------------------LAB - GETTING STARTED WITH THE DATA SCIENCE TOOLS

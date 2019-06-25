@@ -1,0 +1,7 @@
+Module 4 - Introducing RStudio IDE
+	What is RStudio IDE?
+	Uploading files, Installing Packages and loading libraries in RStudio IDE
+	Getting started with RStudio IDE
+	RStudio Environment and History
+	Apache Spark in RStudio IDE
+	LAB: Getting Started with RStudio IDE

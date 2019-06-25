@@ -1,0 +1,7 @@
+Module 3 - Introducing Zeppelin Notebooks
+	What are Zeppelin Notebooks?
+	Zeppelin for Scala
+	Getting started with Zeppelin
+	Managing your Interpreters in Zeppelin
+	Apache Spark in Zeppelin Notebooks
+	LAB: Getting Started with Apache Zeppelin Notebooks

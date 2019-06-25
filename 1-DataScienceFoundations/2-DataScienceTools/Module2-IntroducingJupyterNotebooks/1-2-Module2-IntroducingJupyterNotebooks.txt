@@ -1,0 +1,6 @@
+Module 2 -Introducing Jupyter Notebooks
+	What are Jupyter notebooks?
+	Getting started with Jupyter
+	Data and Notebooks in Jupyter
+	Sharing your Jupyter Notebooks and data
+	LAB: Getting Started with Jupyter Notebooks
