@@ -6,3 +6,63 @@ Module 5: From Deployment to Feedback
 DEPLOYMENT
 ------------------------------------------------------------------
 FEEDBACK
+------------------------------------------------------------------
+GRADED ASSIGNMENT
+
+The final stages of the data science methodology are an iterative cycle between modelling, evaluation, deployment, and feedback.
+
+Model evaluation used for Assessing the model before getting deployed. Assessing the model before getting deployed.
+
+Feedback is essential to the long term viability of the model.
+
+
+
+-------------------------------------------------------------------------
+Final Exam
+1. Data science methodology provides the data scientist with a framework for how to proceed to obtain answers. Data science methodology provides the data scientist with a framework for how to proceed to obtain answers. - correct
+
+2. Business understanding is important in the data science methodology stage. Why?
+Because it shapes the rest of the methodological steps. 
+Because it clearly defines the problem and the needs from a business perspective.  
+Because it ensures that the work generates the intended solution.  
+Because it involves domain expertise.
+
+3. A data scientist determines that building a recommender system is the solution for a particular business problem at hand. What stage of the data science methodology does this represent?
+Analytic approach
+
+4. Which of the following represent the two important characteristics of the data science methodology?
+It is a highly iterative process and it never ends.
+
+5. What do data scientists typically use for exploratory analysis of data and to get acquainted with them?
+They use descriptive statistics and data visualization techniques.
+
+6. Data preparation involves dealing with missing improperly coded data and can include using text analysis to structure unstructured or semi-structured text data.
+
+7. Modeling may require testing multiple algorithms and parameters.
+
+8.  Model evaluation may entail statistical significance tests, particularly when additional proof is necessary to justify some of the emerging recommendations.  
+Model evaluation is important because it examines how well the model performs in the context of the business problem.  
+Model evaluation entails computing graphs and/or various diagnostic measures such as a confusion matrix.  
+Model evaluation is done using a test set if the model is a predictive one.
+
+9. What does deploying a model into production represent?
+It represents the beginning of an iterative process that includes feedback, model refinement and redeployment and requires the input of additional groups, such as marketing personnel and business owners. It represents the beginning of an iterative process that includes feedback, model refinement and redeployment and requires the input of additional groups, such as marketing personnel and business owners. - correct
+
+10. A data scientist, John, was asked to help reduce readmission rates at a local hospital. After some time, John provided a model that predicted which patients were more likely to be readmitted to the hospital and declared that his work was done. Which of the following best describes this scenario?
+Even though John only submitted one solution, it might be a good one. However, John needed feedback on his model from the hospital to confirm that his model was able to address the problem appropriately and sufficiently.
+
+11. A car company asked a data scientist to determine what type of customers are more likely to purchase their vehicles. However, the data comes from several sources and is in a relatively “raw format”. What kind of processing can the data scientist perform on the data to prepare it for modeling?
+Feature engineering.  
+Transforming the data into more useful variables.  
+Combining the data from the various sources.  
+Addressing missing/invalid values.
+
+12. High-performance, massively parallel systems can be used to facilitate the following methodological steps.
+Data preparation and Modeling.
+
+13. Data scientists may use either a “top-down” approach or a “bottom-up” approach to data science. These two approaches refer to:
+“Top-down” approach – first defining a business problem then analyzing the data to find a solution. “Bottom-up” approach – starting with the data, and then coming up with a business problem based on the data.
+
+14. The following are all examples of rapidly evolving technologies that affect data science methodology EXCEPT for?
+Data sampling.
+\Automation.  Text analysis.  Platform growth.  In-database analytics.
