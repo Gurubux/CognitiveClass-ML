@@ -7,6 +7,7 @@ MODELING
 Data Modelling focuses on developing models that are either descriptive or predictive.
 An example of a "descriptive model" might examine things like: if a person did this, then they`re likely to prefer that.
 A "predictive model" tries to yield yes/no, or stop/go type outcomes. These models are based on the analytic approach that was taken, either statistically driven or machine learning driven.
+The data scientist will use a training set for predictive modelling.
 
 The success of data compilation, preparation and modelling, depends on the understanding of the problem at hand, and the appropriate analytical approach being taken.
 The data supports the answering of the question, and like the quality of the ingredients in cooking, sets the stage for the outcome. Constant refinement, adjustments and tweaking are necessary within each step to ensure the outcome is one that is solid.
@@ -164,7 +165,7 @@ export_graphviz(bamboo_tree,
 with open("bamboo_tree.dot") as bamboo_tree_image:
     bamboo_tree_graph = bamboo_tree_image.read()
 graphviz.Source(bamboo_tree_graph)
-
+\"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/1-DataScienceFoundations/3-DataScienceMethodology/Module4-FromModelingtoEvaluation/DT_1.png"
 
 In [9]:
 bamboo = recipes[recipes.cuisine.isin(["korean", "japanese", "chinese", "thai", "indian"])]
@@ -235,3 +236,17 @@ export_graphviz(bamboo_train_tree,
 with open("bamboo_train_tree.dot") as bamboo_train_tree_image:
     bamboo_train_tree_graph = bamboo_train_tree_image.read()
 graphviz.Source(bamboo_train_tree_graph)
+\"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/1-DataScienceFoundations/3-DataScienceMethodology/Module4-FromModelingtoEvaluation/DT_2.png"
+
+-------------------------------------------------------------
+GRADED ASSIGNMENT
+A training set is used for predictive modeling.
+
+Type I ERROR 	: "false positive" or "false hit".
+Type II ERROR 	: "false negative" or "miss".
+
+
+Model evaluation can include statistical significance testing.  
+Model evaluation includes ensuring that the data are properly handled and interpreted.  
+Model evaluation includes ensuring the model is designed as intended.  
+Model evaluation includes ensuring that the model is working as intended.
