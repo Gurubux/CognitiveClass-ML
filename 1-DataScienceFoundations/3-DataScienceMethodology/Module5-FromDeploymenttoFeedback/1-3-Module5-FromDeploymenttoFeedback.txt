@@ -66,3 +66,24 @@ Data preparation and Modeling.
 14. The following are all examples of rapidly evolving technologies that affect data science methodology EXCEPT for?
 Data sampling.
 \Automation.  Text analysis.  Platform growth.  In-database analytics.
+
+15. Data understanding involves all of the following EXCEPT for?
+Gathering and analyzing feedback for assessment of the model’s performance.
+\Discovering initial insights about the data.  Visualizing the data.  Assessing data quality.  Understanding the content of the data.
+
+16. For predictive models, a test set, which is similar to – but independent of – the training set, is used to determine how well the model predicts outcomes. This is an example of what step in the methodology?
+Model evaluation.
+
+17. “When ______ data is available (such as customer call center logs or physicians’ notes in unstructured or semi-structured format), _______ analytics can be useful in deriving new structured variables to enrich the set predictors and improve model accuracy.” Which of the following most appropriately fills in the blanks?
+text,text
+
+18. Typically in a predictive model, the training set and the test set are very different and independent, such as having a different set of variables or structure.
+FALSE
+
+19. Data scientists may frequently return to a previous stage to make adjustments, as they learn more about the data and the modeling.
+TRUE
+
+20. Why should data scientists maintain continuous communication with business sponsors throughout a project?
+So that business sponsors can provide domain expertise.  
+So that business sponsors can ensure the work remains on track to generate the intended solution.  
+So that business sponsors can review intermediate findings.
