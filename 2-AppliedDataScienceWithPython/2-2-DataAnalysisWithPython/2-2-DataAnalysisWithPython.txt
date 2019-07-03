@@ -1,0 +1,335 @@
+DATA ANALYSIS WITH PYTHON
+
+MODULE 1 - INTRODUCTION
+LEARNING OBJECTIVES
+UNDERSTANDING THE DOMAIN
+UNDERSTANDING THE  DATASET
+PYTHON PACKAGE FOR DATA SCIENCE
+IMPORTING AND EXPORTING DATA IN PYTHON
+BASIC INSIGHTS FROM DATASETS
+
+MODULE 2 - DATA WRANGLING
+IDENTIFY AND HANDLE MISSING VALUES
+DATA FORMATTING
+DATA NORMALIZATIONSETS
+BINNING
+INDICATOR VARIABLES
+
+MODULE 3 -  EXPLORATORY DATA ANALYSIS
+DESCRIPTIVE STATISTICS
+BASIC OF GROUPING
+ANOVA
+CORRELATION
+CORRELATION 2
+
+MODULE 4 - MODEL DEVELOPMENT
+SIMPLE AND MULTIPLE LINEAR REGRESSION
+MODEL EVALUATION USING VISUALIZATION
+POLYNOMIAL REGRESSION AND PIPELINES
+R-SQUARED AND MSE FOR IN-SAMPLE EVALUATION
+PREDICTION AND DECISION MAKING
+
+MODULE 5 - WORKING WITH DATA IN PYTHON
+MODEL  EVALUATION    
+OVER FITTING, UNDER FITTING AND MODEL SELECTION 
+RIDGE REGRESSION
+GRID SEARCH 
+MODEL REFINEMENT 
+
+
+
+************************************************************************************************************
+MODULE 1 - INTRODUCTION
+************************************************************************************************************
+LEARNING OBJECTIVES
+Used Car Sale Price
+UNDERSTANDING THE DOMAIN
+Questions?
+	1. Is there data on the prices of other cars and their characteristics?
+	2. What features of cars affect their prices?
+		Colour?
+		Brand?
+		Does horsepower also affect the selling price, or perhaps, something else?
+
+UNDERSTANDING THE  DATASET
+
+PYTHON PACKAGE FOR DATA SCIENCE
+
+IMPORTING AND EXPORTING DATA IN PYTHON
+Read/Save Other Data Formats
+Data Formate	Read			Save
+csv				pd.read_csv()	df.to_csv()
+json			pd.read_json()	df.to_json()
+excel			pd.read_excel()	df.to_excel()
+hdf				pd.read_hdf()	df.to_hdf()
+sql				pd.read_sql()	df.to_sql()
+
+BASIC INSIGHTS FROM DATASETS
+
+df.describe() #This method will provide various summary statistics, excluding NaN (Not a Number) values.
+		symboling	wheel-base	length	width	height	curb-weight	engine-size	compression-ratio	city-mpg	highway-mpg
+count	205.000000	205.000000	205.000000	205.000000	205.000000	205.000000	205.000000	205.000000	205.000000	205.000000
+mean	0.834146	98.756585	174.049268	65.907805	53.724878	2555.565854	126.907317	10.142537	25.219512	30.751220
+std		1.245307	6.021776	12.337289	2.145204	2.443522	520.680204	41.642693	3.972040	6.542142	6.886443
+min		-2.000000	86.600000	141.100000	60.300000	47.800000	1488.000000	61.000000	7.000000	13.000000	16.000000
+25%		0.000000	94.500000	166.300000	64.100000	52.000000	2145.000000	97.000000	8.600000	19.000000	25.000000
+50%		1.000000	97.000000	173.200000	65.500000	54.100000	2414.000000	120.000000	9.000000	24.000000	30.000000
+75%		2.000000	102.400000	183.100000	66.900000	55.500000	2935.000000	141.000000	9.400000	30.000000	34.000000
+max		3.000000	120.900000	208.100000	72.300000	59.800000	4066.000000	326.000000	23.000000	49.000000	54.000000
+
+df.describe(include = "all") # describe all the columns in "df". You will get a statistical summary of all the columns of type object
+
+df[['length', 'compression-ratio'] ].describe()
+
+df.info()
+RangeIndex: 205 entries, 0 to 204
+Data columns (total 26 columns):
+symboling            205 non-null int64
+normalized-losses    205 non-null object
+make                 205 non-null object
+fuel-type            205 non-null object
+aspiration           205 non-null object
+num-of-doors         205 non-null object
+body-style           205 non-null object
+drive-wheels         205 non-null object
+engine-location      205 non-null object
+wheel-base           205 non-null float64
+length               205 non-null float64
+width                205 non-null float64
+height               205 non-null float64
+curb-weight          205 non-null int64
+engine-type          205 non-null object
+num-of-cylinders     205 non-null object
+engine-size          205 non-null int64
+fuel-system          205 non-null object
+bore                 205 non-null object
+stroke               205 non-null object
+compression-ratio    205 non-null float64
+horsepower           205 non-null object
+peak-rpm             205 non-null object
+city-mpg             205 non-null int64
+highway-mpg          205 non-null int64
+price                205 non-null object
+dtypes: float64(5), int64(5), object(16)
+memory usage: 41.7+ KB
+
+************************************************************************************************************
+MODULE 2 - DATA WRANGLING
+************************************************************************************************************
+IDENTIFY AND HANDLE MISSING VALUES
+Data Wrangling?
+Data Wrangling is the process of converting data from the initial format to a format that may be better for analysis.
+
+Steps for working with missing data:
+	1. Identify missing data
+	2. deal with missing data
+	3. correct data format
+1. Identify missing data
+	Convert "?" to NaN
+		df.replace("?", np.nan, inplace = True)
+	Evaluating for Missing Data
+		.isnull()
+		.notnull()	
+		missing_data = df.isnull()
+		missing_data.head(5)
+
+	symboling	normalized-losses	make	fuel-type	aspiration	num-of-doors	body-style	drive-wheels	engine-location	wheel-base	...	engine-size	fuel-system	bore	stroke	compression-ratio	horsepower	peak-rpm	city-mpg	highway-mpg	price
+0	False	True	False	False	False	False	False	False	False	False	...	False	False	False	False	False	False	False	False	False	False
+1	False	True	False	False	False	False	False	False	False	False	...	False	False	False	False	False	False	False	False	False	False
+2	False	True	False	False	False	False	False	False	False	False	...	False	False	False	False	False	False	False	False	False	False
+3	False	False	False	False	False	False	False	False	False	False	...	False	False	False	False	False	False	False	False	False	False
+4	False	False	False	False	False	False	False	False	False	False	...	False	False	False	False	False	False	False	False	False	False
+"True" stands for missing value, while "False" stands for not missing value.
+	
+	Count missing values in each column
+
+	missing_data = df.isnull()
+	missing_data.sum()
+
+2. Deal with missing data
+	Drop data
+		a. drop the whole row
+		b. drop the whole column
+	Replace data
+		a. replace it by mean
+		b. replace it by frequency
+		c. replace it based on other functions
+
+	Replace by mean:
+	"normalized-losses": 41 missing data, replace them with mean
+	"stroke": 4 missing data, replace them with mean
+	"bore": 4 missing data, replace them with mean
+	"horsepower": 2 missing data, replace them with mean
+	"peak-rpm": 2 missing data, replace them with mean
+
+		missing_df = df[["normalized-losses","stroke","bore","horsepower","peak-rpm"]]
+		missing_df.fillna(missing_df.mean(),inplace = True)
+
+
+	Replace by frequency:
+	"num-of-doors": 2 missing data, replace them with "four".
+	Reason: 84% sedans is four doors. Since four doors is most frequent, it is most likely to occur
+		from sklearn.impute import SimpleImputer
+		imputer = SimpleImputer(missing_values = np.nan, strategy = 'most_frequent')
+		imputer = imputer.fit(df[['num-of-doors']])
+		df['num-of-doors'] = imputer.transform(df[['num-of-doors']])
+
+	Drop the whole row:
+	"price": 4 missing data, simply delete the whole row
+		Reason: price is what we want to predict. Any data entry without price data cannot be used for prediction; therefore any row now without price data is not useful to us
+		# simply drop whole row with NaN in "price" column
+		df.dropna(subset=["price"], axis=0, inplace=True)
+		
+		# reset index, because we droped two rows
+		df.reset_index(drop=True, inplace=True)
+
+
+3. Correct data format- (int, float, text or other)
+	astype(float)
+	df[["bore", "stroke"]] = df[["bore", "stroke"]].astype("float")
+	df[["normalized-losses"]] = df[["normalized-losses"]].astype("int")
+	df[["price"]] = df[["price"]].astype("float")
+	df[["peak-rpm"]] = df[["peak-rpm"]].astype("float")
+
+
+
+
+DATA FORMATTING -  Data Standardization
+What is Standardization?
+Standardization is the process of transforming data into a common format which allows the researcher to make the meaningful comparison.
+Data transformation
+We will need to apply data transformation to transform mpg into L/100km
+	The formula for unit conversion is : L/100km = 235 / mpg
+
+# Convert mpg to L/100km by mathematical operation (235 divided by mpg)
+df['city-L/100km'] = 235/df["city-mpg"]
+# Write your code below and press Shift+Enter to execute 
+df['highway-L/100km'] = 235/df["highway-mpg"]
+
+DATA NORMALIZATION
+Normalization is the process of transforming values of several variables into a similar range. Typical normalizations include scaling the variable so the variable average is 0, scaling the variable so the variance is 1, or scaling variable so the variable values range from 0 to 1
+			To demonstrate normalization, let`s say we want to scale the columns "length", "width" and "height"
+Target	:	Would like to Normalize those variables so their value ranges from 0 to 1.
+Approach: 	Replace original value by (original value)/(maximum value)
+
+
+# replace (original value) by (original value)/(maximum value)
+df['length'] 	= df['length']/df['length'].max()
+df['width'] 	= df['width']/df['width'].max()
+df['height'] 	= df['height']/df['height'].max()
+
+#Using MinMaxScaler
+from sklearn import preprocessing
+scaled = preprocessing.MinMaxScaler(feature_range=(0,1))
+
+df['length'] = scaled.fit_transform(df[['length']].values.reshape(-1,1))
+df['width'] = scaled.fit_transform(df[['width']].values.reshape(-1,1))
+df['height'] = scaled.fit_transform(df[['height']].values.reshape(-1,1))
+
+#Using scale() to scale your features
+standardized_mpg = preprocessing.scale(df[['length','width','height']], axis=0, with_mean=False, with_std=False)
+plt.plot(standardized_mpg)
+
+
+BINNING
+Why binning?
+Binning is a process of transforming continuous numerical variables into discrete categorical 'bins', for grouped analysis.
+In our dataset, "horsepower" is a real valued variable ranging from 48 to 288, it has 57 unique values. What if we only care about the price difference between cars with high horsepower, medium horsepower, and little horsepower (3 types)? Can we rearrange them into three ‘bins` to simplify analysis?
+Pandas method 'cut' to segment the 'horsepower' column into 3 bins
+pd.cut()
+
+bins = np.linspace(min(df["horsepower"]), max(df["horsepower"]), 4)
+>>> 	array([ 48.        , 119.33333333, 190.66666667, 262.        ])
+group_names = ['Low', 'Medium', 'High']
+
+df['horsepower-binned'] = pd.cut(df['horsepower'], bins, labels=group_names, include_lowest=True )
+df[['horsepower','horsepower-binned']].head(20)
+>>>		
+			horsepower	horsepower-binned
+		0	111			Low
+		1	111			Low
+		2	154			Medium
+		3	102			Low
+		4	115			Low
+		5	110			Low
+We successfully narrow the intervals from 57 to 3!
+		
+Bins VISUALIZATION
+import matplotlib as plt
+from matplotlib import pyplot
+
+a = (0,1,2)
+
+# draw historgram of attribute "horsepower" with bins = 3
+plt.pyplot.hist(df["horsepower"], bins = 3)
+
+# set x/y labels and plot title
+plt.pyplot.xlabel("horsepower")
+plt.pyplot.ylabel("count")
+plt.pyplot.title("horsepower bins")
+
+
+
+INDICATOR VARIABLES or dummy variable
+What is an indicator variable?
+	An indicator variable (or dummy variable) is a numerical variable used to label categories. They are called 'dummies' because the numbers themselves don`t have inherent meaning.
+Why we use indicator variables?
+	So we can use categorical variables for regression analysis in the later modules, since Regression doesn`t understand words, only numbers.
+Example
+We see the column "fuel-type" has two unique values, "gas" or "diesel". Regression doesn`t understand words, only numbers. To use this attribute in regression analysis, we convert "fuel-type" into indicator variables.
+pd.get_dummies()
+
+dummy_variable_1 = pd.get_dummies(df["fuel-type"])
+dummy_variable_1.head()
+>>>
+	diesel	gas
+0	0		1
+1	0		1
+2	0		1
+3	0		1
+4	0		1
+# merge data frame "df" and "dummy_variable_1" 
+df = pd.concat([df, dummy_variable_1], axis=1)
+
+# drop original column "fuel-type" from "df"
+df.drop("fuel-type", axis = 1, inplace=True)
+
+dummy_variable_2 = pd.get_dummies(df['aspiration'])
+	aspiration-std	aspiration-turbo
+0	1	0
+1	1	0
+2	1	0
+3	1	0
+4	1	0
+
+************************************************************************************************************
+MODULE 3 -  EXPLORATORY DATA ANALYSIS
+************************************************************************************************************
+DESCRIPTIVE STATISTICS
+BASIC OF GROUPING
+ANOVA
+CORRELATION
+CORRELATION 2
+
+************************************************************************************************************
+MODULE 4 - MODEL DEVELOPMENT
+************************************************************************************************************
+SIMPLE AND MULTIPLE LINEAR REGRESSION
+MODEL EVALUATION USING VISUALIZATION
+POLYNOMIAL REGRESSION AND PIPELINES
+R-SQUARED AND MSE FOR IN-SAMPLE EVALUATION
+PREDICTION AND DECISION MAKING
+
+************************************************************************************************************
+MODULE 5 - WORKING WITH DATA IN PYTHON
+************************************************************************************************************
+MODEL  EVALUATION    
+OVER FITTING, UNDER FITTING AND MODEL SELECTION 
+RIDGE REGRESSION
+GRID SEARCH 
+MODEL REFINEMENT 
+
+
+
+********************************* CREDITS ***************************************************************************
+ Mahdi Noorian PhD, Joseph Santarcangelo, Bahare Talayian, Eric Xiao, Steven Dong, Parizad, Hima Vsudevan and Fiorella Wenver and Yi Yao
