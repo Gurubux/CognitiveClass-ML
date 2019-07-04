@@ -305,31 +305,852 @@ dummy_variable_2 = pd.get_dummies(df['aspiration'])
 ************************************************************************************************************
 MODULE 3 -  EXPLORATORY DATA ANALYSIS
 ************************************************************************************************************
+QUESTION : "“What are the characteristics that have the MOST IMPACT on the car price?”"
+Best Ways to visualize ? 
+	Know the dtype of a column
+	1. Continuous numerical variables: SCATTERPLOT
+		In order to start understanding the (linear) relationship between an individual variable and the price. We can do this by using "regplot", which plots the scatterplot plus the fitted regression line for the data.
+		
+		Strong Positive Linear Relationship
+		a.	# Engine size as potential predictor variable of price
+			sns.regplot(x=("engine-size"), y=("price"), data=df)
+			plt.ylim(0,)
+			>>> (0, 56008.737008734766) #ax : matplotlib Axes The Axes object containing the plot.
+			df[["engine-size", "price"]].corr()
+
+		Strong Negative Relationship
+		b.	sns.regplot(x="highway-mpg", y="price", data=df)
+			df[['highway-mpg', 'price']].corr()
+
+		Weak Linear Relationship
+		c.	sns.regplot(x="peak-rpm", y="price", data=df)
+			df[['peak-rpm','price']].corr()		
+			sns.regplot(x="stroke", y="price", data=df)
+			df[['stroke','price']].corr()
+
+
+	2. Categorical variables : BOXPLOTS
+		df_categorical = df.select_dtypes(include=[np.object,np.int64])
+		#df_categorical.dtypes
+		for column in df_categorical.columns.values.tolist():
+		    print(column)
+		    print (df_categorical[column].value_counts())
+		    print("") 
+
+		sns.boxplot(x="body-style", y="price", data=df)
+		sns.boxplot(x="engine-location", y="price", data=df)
+		sns.boxplot(x="drive-wheels", y="price", data=df)
+
 DESCRIPTIVE STATISTICS
+	df.describe()
+	The describe function automatically computes basic statistics for all continuous variables. Any NaN values are automatically skipped in these statistics.
+	This will show:
+		the count of that variable
+		the mean
+		the standard deviation (std)
+		the minimum value
+		the IQR (Interquartile Range: 25%, 50% and 75%)
+		the maximum value
+
+	df.describe(include=['object'])
+			make	aspiration	num-of-doors	body-style	drive-wheels	engine-location	engine-type	num-of-cylinders	fuel-system	horsepower-binned
+	count	201		201			201		201		201		201		201		201		201		200
+	unique	22		2			2		5		3		2		6		7		8		3
+	top		toyota	std			four	sedan	fwd		front	ohc		four	mpfi	Low
+	freq	32		165			115		94		118		198		145		157		92		115
+
+
+
 BASIC OF GROUPING
-ANOVA
+groupby()
+	1. Group with Single variable.
+		df_group_one = df[['drive-wheels','body-style','price']]
+		# grouping results
+		df_group_one = df_group_one.groupby(['drive-wheels'],as_index=False).mean()
+		>>>	  |	drive-wheels |	price
+			0 |	4wd			 |	10241.000000
+			1 |	fwd			 |	9244.779661
+			2 |	rwd			 |	19757.613333
+		"From our data, it seems rear-wheel drive vehicles are, on average, the most expensive, while 4-wheel and front-wheel are approximately the same in price."
+	2. Group with Multiple variable.
+		# grouping results
+		df_gptest = df[['drive-wheels','body-style','price']]
+		grouped_test1 = df_gptest.groupby(['drive-wheels','body-style'],as_index=False).mean()
+		grouped_test1
+			drive-wheels	body-style	price
+		0	4wd				hatchback	7603.000000
+		1	4wd				sedan		12647.333333
+		2	4wd				wagon		9095.750000
+		3	fwd				convertible	11595.000000
+		4	fwd				hardtop		8249.000000
+		5	fwd				hatchback	8396.387755
+		6	fwd				sedan		9811.800000
+		7	fwd				wagon		9997.333333
+		8	rwd				convertible	23949.600000
+		9	rwd				hardtop		24202.714286
+		10	rwd				hatchback	14337.777778
+		11	rwd				sedan		21711.833333
+		12	rwd				wagon		16994.222222
+
+		Pivot Table - A pivot table is like an Excel spreadsheet, with one variable along the column and another along the row.
+		df.pivot()
+		grouped_pivot = grouped_test1.pivot(index='drive-wheels',columns='body-style')
+
+																		price
+		body-style	convertible	hardtop		hatchback	sedan			wagon
+		drive-wheels	
+		---------------------------------------------------------------------------					
+		4wd			NaN			NaN			7603.000000	12647.333333	9095.750000
+		fwd			11595.0		8249.00		8396.387755	9811.800000		9997.333333
+		rwd			23949.6		24202.71	14337.77777 21711.833333	16994.222222
+
+		Fill these missing cells with the value 0
+		grouped_pivot = grouped_pivot.fillna(0)
+																		price
+		body-style	convertible	hardtop		hatchback	sedan			wagon
+		drive-wheels	
+		---------------------------------------------------------------------------					
+		4wd			0.0			0.0000		7603.000000	12647.333333	9095.750000
+		fwd			11595.0		8249.00		8396.387755	9811.800000		9997.333333
+		rwd			23949.6		24202.71	14337.77777 21711.833333	16994.222222
+
+		#use the grouped results
+		plt.pcolor(grouped_pivot, cmap='RdBu')
+		plt.colorbar()
+		plt.show()
+		
+		def plot_heatmap_grouping_pivotTable(grouped_pivot):
+    		import matplotlib.pyplot as plt
+    		%matplotlib inline 
+    		
+    		fig, ax = plt.subplots()
+    		im = ax.pcolor(grouped_pivot, cmap='RdBu')
+		
+		    #label names
+		    row_labels = grouped_pivot.columns.levels[1]
+		    col_labels = grouped_pivot.index
+			
+		    #move ticks and labels to the center
+		    ax.set_xticks(np.arange(grouped_pivot.shape[1]) + 0.5, minor=False)
+		    ax.set_yticks(np.arange(grouped_pivot.shape[0]) + 0.5, minor=False)
+			
+		    #insert labels
+		    ax.set_xticklabels(row_labels, minor=False)
+		    ax.set_yticklabels(col_labels, minor=False)
+			
+		    #rotate label if too long
+		    plt.xticks(rotation=90)
+			
+		    fig.colorbar(im)
+    		plt.show()
+
+    	plot_heatmap_grouping_pivotTable(grouped_pivot)
+
+
+
+
 CORRELATION
+How is the car price dependent on this variable?
+Correlation: a measure of the extent of interdependence between variables.
+
+Causation: the relationship between cause and effect between two variables.
+
+Pearson Correlation
+1	: Total positive linear correlation.
+0	: No linear correlation, the two variables most likely do not affect each other.
+-1	: Total negative linear correlation.
+
+Calculate the Pearson Correlation of the of the 'int64' or 'float64' variables.
+df.corr()
+
+To know the significance of the correlation estimate. - "P-Value"
+What is this P-value? The P-value is the probability value that the correlation between these two variables is statistically significant. Normally, we choose a significance level of 0.05, which means that we are 95% confident that the correlation between the variables is significant.
+By convention, when the
+	p-value 	is  <  0.001: we say there is strong evidence that the correlation is significant.
+	the p-value is  <  0.05 : there is moderate evidence that the correlation is significant.
+	the p-value is  <  0.1	: there is weak evidence that the correlation is significant.
+	the p-value is  >  0.1	: there is no evidence that the correlation is significant.
+
+Callculate pearsonr for multiple columns.
+from scipy import stats
+df_pearson = df[["wheel-base", "horsepower", "length", "width", "curb-weight", "engine-size", "bore", "city-mpg", "highway-mpg"]]
+target = df[["price"]]
+def cal_pearsonr_pValue(df,target):
+    from scipy import stats
+    for column in df.columns.values.tolist():
+        print(column)
+        pearson_coef, p_value = stats.pearsonr(df[[column]], target)
+        print(f"The Pearson Correlation Coefficient for ",column," is ", pearson_coef, " with a P-value of P = {p_value}")
+        print("")
+
+pearson_coef, p_value = stats.pearsonr(df['wheel-base'], df['price'])
+print("The Pearson Correlation Coefficient is", pearson_coef, " with a P-value of P =", p_value)  
+>>> The Pearson Correlation Coefficient is 0.5846418222655081  with a P-value of P = 8.076488270732955e-20
+\Since the p-value is  <  0.001, the correlation between wheel-base and price is statistically significant, although the linear relationship isn`t extremely strong (~0.585)
+
+corr = df_pearson.corr()
+sns.heatmap(corr)
+
+
 CORRELATION 2
 
+
+ANOVA
+f_oneway()
+ANOVA, the analysis of variance, a statistical method in which the variation in a set of observations is divided into distinct components.
+The Analysis of Variance (ANOVA) is a statistical method used to test whether there are "SIGNIFICANT DIFFERENCES" between the means of two or more groups. ANOVA returns two parameters:
+	1. "F-TEST SCORE": ANOVA assumes the means of all groups are the same, calculates how much the actual means deviate from the assumption, and reports it as the F-test score. A larger score means there is a larger difference between the means.
+
+	2. "P-VALUE" 	 : P-value tells how statistically significant is our calculated score value.
+If our price variable is strongly correlated with the variable we are analyzing, expect ANOVA to return a sizeable F-test score and a small p-value.
+
+df_gptest
+>>>
+	drive-wheels	body-style	price
+0	rwd				convertible	13495.0
+1	rwd				convertible	16500.0
+2	rwd				hatchback	16500.0
+3	fwd				sedan		13950.0
+4	4wd				sedan		17450.0
+5	fwd				sedan		15250.0
+6	fwd				sedan		17710.0
+
+grouped_test2=df_gptest[['drive-wheels', 'price']].groupby(['drive-wheels'])
+grouped_test2.head(2)
+>>> 
+		drive-wheels	price
+	0	rwd				13495.0
+	1	rwd				16500.0
+	3	fwd				13950.0
+	4	4wd				17450.0
+	5	fwd				15250.0
+	136	4wd				7603.0
+
+grouped_test2.get_group('4wd')['price']
+>>>
+	4      17450.0
+	136     7603.0
+	140     9233.0
+	141    11259.0
+	144     8013.0
+	145    11694.0
+	150     7898.0
+	151     8778.0
+	Name: price, dtype: float64
+
+from scipy import stats
+
+1. # ANOVA
+	f_val, p_val = stats.f_oneway(grouped_test2.get_group('fwd')['price'], grouped_test2.get_group('rwd')['price'], grouped_test2.get_group('4wd')['price'])  
+ 
+	print( "ANOVA results: F=", f_val, ", P =", p_val)   
+	>>> ANOVA results: F= 67.95406500780399 , P = 3.3945443577151245e-23
+"This is a great result, with a large F test score showing a strong correlation and a P value of almost 0 implying almost certain statistical significance. But does this mean all three tested groups are all this highly correlated?"
+
+2. f_val, p_val = stats.f_oneway(grouped_test2.get_group('fwd')['price'], grouped_test2.get_group('rwd')['price'])  
+	print( "ANOVA results: F=", f_val, ", P =", p_val )
+	>>>ANOVA results: F= 130.5533160959111 , P = 2.2355306355677845e-23
+
+3. f_val, p_val = stats.f_oneway(grouped_test2.get_group('4wd')['price'], grouped_test2.get_group('rwd')['price'])
+	print( "ANOVA results: F=", f_val, ", P =", p_val)   
+	>>>ANOVA results: F= 8.580681368924756 , P = 0.004411492211225333
+
+4.	f_val, p_val = stats.f_oneway(grouped_test2.get_group('4wd')['price'], grouped_test2.get_group('fwd')['price'])  
+	print("ANOVA results: F=", f_val, ", P =", p_val) 
+	>>>ANOVA results: F= 0.665465750252303 , P = 0.41620116697845666
+
+
+
+
+---------------------------------------------
+CONCLUSION: IMPORTANT VARIABLES
+We now have a better idea of what our data looks like and which variables are important to take into account when predicting the car price. We have narrowed it down to the following variables:
+
+Continuous numerical variables:
+
+Length
+Width
+Curb-weight
+Engine-size
+Horsepower
+City-mpg
+Highway-mpg
+Wheel-base
+Bore
+Categorical variables:
+
+Drive-wheels
+As we now move into building machine learning models to automate our analysis, feeding the model with variables that meaningfully affect our target variable will improve our model`s prediction performance.
+---------------------------------------------------------------
 ************************************************************************************************************
 MODULE 4 - MODEL DEVELOPMENT
 ************************************************************************************************************
+QUESTIONS
+	do I know if the dealer is offering fair value for my trade-in?
+	do I know if I put a fair value on my car?
+------------------------------------------------------------------------------------------------
 SIMPLE AND MULTIPLE LINEAR REGRESSION
+ŷ = 𝑎+𝑏𝑋
+	a refers to the intercept of the regression line0, in other words: the value of Y when X is 0
+	b refers to the slope of the regression line, in other words: the value with which Y changes when X increases by 1 unit
+
+from sklearn.linear_model import LinearRegression
+lm = LinearRegression() # LinearRegression(copy_X=True, fit_intercept=True, n_jobs=None, normalize=False)
+X = df[['highway-mpg']]
+Y = df['price']
+lm.fit(X,Y)
+Yhat=lm.predict(X)
+Yhat[0:5]   
+lm.intercept_ # 38423.305858157386
+lm.coef_ # array([-821.73337832])
+
+price = 38423.31 - 821.73 x highway-mpg
+
+lm2 = LinearRegression()
+lm2.fit(df[['engine-size']],df[['price']])
+lm2.coef_ #166.8600
+lm2.intercept_ #-7963.338
+
+price = -7963.338 + 166.8600 x engine-size
+
+MULTIPLE LINEAR REGRESSION
+The equation is given by
+			𝑌ℎ𝑎𝑡=𝑎+𝑏1𝑋1+𝑏2𝑋2+𝑏3𝑋3+𝑏4𝑋4
+
+		𝑌:𝑅𝑒𝑠𝑝𝑜𝑛𝑠𝑒 𝑉𝑎𝑟𝑖𝑎𝑏𝑙𝑒
+		𝑋1:𝑃𝑟𝑒𝑑𝑖𝑐𝑡𝑜𝑟 𝑉𝑎𝑟𝑖𝑎𝑏𝑙𝑒 1
+		𝑋2:𝑃𝑟𝑒𝑑𝑖𝑐𝑡𝑜𝑟 𝑉𝑎𝑟𝑖𝑎𝑏𝑙𝑒 2
+		𝑋3:𝑃𝑟𝑒𝑑𝑖𝑐𝑡𝑜𝑟 𝑉𝑎𝑟𝑖𝑎𝑏𝑙𝑒 3
+		𝑋4:𝑃𝑟𝑒𝑑𝑖𝑐𝑡𝑜𝑟 𝑉𝑎𝑟𝑖𝑎𝑏𝑙𝑒 4
+
+		𝑎:𝑖𝑛𝑡𝑒𝑟𝑐𝑒𝑝𝑡
+		𝑏1:𝑐𝑜𝑒𝑓𝑓𝑖𝑐𝑖𝑒𝑛𝑡𝑠 𝑜𝑓 𝑉𝑎𝑟𝑖𝑎𝑏𝑙𝑒 1
+		𝑏2:𝑐𝑜𝑒𝑓𝑓𝑖𝑐𝑖𝑒𝑛𝑡𝑠 𝑜𝑓 𝑉𝑎𝑟𝑖𝑎𝑏𝑙𝑒 2
+		𝑏3:𝑐𝑜𝑒𝑓𝑓𝑖𝑐𝑖𝑒𝑛𝑡𝑠 𝑜𝑓 𝑉𝑎𝑟𝑖𝑎𝑏𝑙𝑒 3
+		𝑏4:𝑐𝑜𝑒𝑓𝑓𝑖𝑐𝑖𝑒𝑛𝑡𝑠 𝑜𝑓 𝑉𝑎𝑟𝑖𝑎𝑏𝑙𝑒 4
+
+From the previous section we know that other good predictors of price could be:
+
+Horsepower
+Curb-weight
+Engine-size
+Highway-mpg
+Z = df[['horsepower', 'curb-weight', 'engine-size', 'highway-mpg']]
+lm.fit(Z, df['price'])
+lm.intercept_ # -15806.624626329198
+lm.coef_ # array([53.49574423,  4.70770099, 81.53026382, 36.05748882])
+
+Price = -15678.742628061467 + 52.65851272 x horsepower + 4.69878948 x curb-weight + 81.95906216 x engine-size + 33.58258185 x highway-mpg
+
+
+lm2 = LinearRegression()
+lm2.fit(df[['normalized-losses', 'highway-mpg']],df[['price']])
+lm2.coef_ #array([[   1.49789586, -820.45434016]])
+lm2.intercept_ # array([38201.31327246]))
+Price = 38201.31327246 + 1.49789586 x normalized-losses - 820.45434016 x highway-mpg
+
+
+------------------------------------------------------------------------------------------------
 MODEL EVALUATION USING VISUALIZATION
+1. Linear Regression - sns.regplot()
+	plt.plot(df[['highway-mpg']],lm2.predict(df[['highway-mpg']]))
+	plt.scatter(df[['highway-mpg']],df[['price']])
+	or
+	sns.regplot(x="highway-mpg", y="price", data=df)
+
+*NOTE*
+"We can see from this plot that price is negatively correlated to highway-mpg, since the regression slope is negative. One thing to keep in mind when looking at a regression plot is to pay attention to how scattered the data points are around the regression line. This will give you a good indication of the variance of the data, and whether a linear model would be the best fit or not. If the data is too far off from the line, this linear model might not be the best model for this data."
+For Example: 
+	sns.regplot(x="peak-rpm", y="price", data=df)
+
+Comparing the regression plot of "peak-rpm" and "highway-mpg" we see that the points For "highway-mpg" are much closer to the generated line and on the average decrease. The points for "peak-rpm" have more spread around the predicted line, and it is much harder to determine if the points are decreasing or increasing as the "highway-mpg" increases.
+
+2. Variance  - sns.residplot()
+A good way to visualize the variance of the data is to use a residual plot.
+What is a residual?
+	The difference between the observed value (y) and the predicted value (Yhat) is called the residual (e). When we look at a regression plot, the residual is the distance from the data point to the fitted regression line.
+
+So what is a residual plot?
+	A residual plot is a graph that shows the residuals on the vertical y-axis and the independent variable on the horizontal x-axis.
+
+NOTE* We look at the spread of the residuals to when looking at a residual plot
+"- IF THE POINTS IN A RESIDUAL PLOT ARE RANDOMLY SPREAD OUT AROUND THE X-AXIS, THEN A LINEAR MODEL IS APPROPRIATE FOR THE DATA. WHY IS THAT? RANDOMLY SPREAD OUT RESIDUALS MEANS THAT THE VARIANCE IS CONSTANT, AND THUS THE LINEAR MODEL IS A GOOD FIT FOR THIS DATA."
+
+width = 12
+height = 10
+plt.figure(figsize=(width, height))
+sns.residplot(df['highway-mpg'], df['price'])
+plt.show()
+
+--> We can see from this residual plot that the residuals are not randomly spread around the x-axis, which leads us to believe that maybe a "NON-LINEAR MODEL" is more appropriate for this data.
+
+3. Multiple Linear Regression - sns.distplot()
+Can`t visualize it with regression or residual plot.
+
+Z = df[['horsepower', 'curb-weight', 'engine-size', 'highway-mpg']]
+lm.fit(Z, df['price'])
+Y_hat = lm.predict(Z)
+
+plt.figure(figsize=(width, height))
+
+
+ax1 = sns.distplot(df['price'], hist=False, color="r", label="Actual Value")
+sns.distplot(Yhat, hist=False, color="b", label="Fitted Values" , ax=ax1)
+
+
+plt.title('Actual vs Fitted Values for Price')
+plt.xlabel('Price (in dollars)')
+plt.ylabel('Proportion of Cars')
+
+plt.show()
+plt.close()
+--->We can see that the fitted values are reasonably close to the actual values, since the two distributions overlap a bit. However, there is definitely some room for improvement.
+------------------------------------------------------------------------------------------------
 POLYNOMIAL REGRESSION AND PIPELINES
+Polynomial regression is a particular case of the general linear regression model or multiple linear regression models.
+We get non-linear relationships by squaring or setting higher-order terms of the predictor variables.
+*NOTE* "Although the predictor variables of Polynomial linear regression are not linear the relationship between the parameters or coefficients is linear. "
+There are different orders of polynomial regression:
+₁₂₃
+				Quadratic - 2nd order
+			𝑌ℎ𝑎𝑡=𝑎+𝑏₁𝑋²+𝑏₂𝑋²
+			 
+				Cubic - 3rd order
+			𝑌ℎ𝑎𝑡=𝑎+𝑏₁𝑋2+𝑏₂𝑋²+𝑏₃𝑋³
+
+				Higher order:
+			𝑌=𝑎+𝑏₁𝑋+𝑏₂𝑋²+𝑏₃𝑋³....
+
+x = df['highway-mpg']
+y = df['price']
+
+# Here we use a polynomial of the 3rd order (cubic) 
+f = np.polyfit(x, y, 3)
+p = np.poly1d(f)
+print(p)
+>>>			         
+	-1.557 𝑋³ + 204.8 𝑋² - 8965 x + 1.379e+05
+
+PlotPolly(p, x, y, 'highway-mpg')
+
+def PlotPolly(model, independent_variable, dependent_variabble, Name):
+    x_new = np.linspace(15, 55, 100)
+    y_new = model(x_new)
+
+    plt.plot(independent_variable, dependent_variabble, '.', x_new, y_new, '-')
+    plt.title('Polynomial Fit with Matplotlib for Price ~ Length')
+    ax = plt.gca()
+    ax.set_facecolor((0.898, 0.898, 0.898))
+    fig = plt.gcf()
+    plt.xlabel(Name)
+    plt.ylabel('Price of Cars')
+
+    plt.show()
+    plt.close()
+
+"We can already see from plotting that this polynomial model performs better than the linear model. This is because the generated polynomial function "hits" more of the data points."
+
+
+The analytical expression for Multivariate Polynomial function gets complicated. For example, the expression for a second-order (degree=2)polynomial with two variables is given by:
+
+		𝑌ℎ𝑎𝑡=𝑎+𝑏1𝑋1+𝑏2𝑋2+𝑏3𝑋1𝑋2+𝑏4𝑋21+𝑏5𝑋22
+Create 11 order polynomial model with the variables x and y from above
+# Write your code below and press Shift+Enter to execute 
+f_1 = np.polyfit(x, y, 11)
+p_1 = np.poly1d(f_1)
+print(p_1)
+PlotPolly(p, x, y, 'highway-mpg')
+------------------------------------------------------------
+We can perform a polynomial transform on multiple features. First, we import the module:
+------------------------------------------------------------
+from sklearn.preprocessing import PolynomialFeatures
+
+pr=PolynomialFeatures(degree=2) #We create a PolynomialFeatures object of degree 2:
+>>>PolynomialFeatures(degree=2, include_bias=True, interaction_only=False)
+Z_pr=pr.fit_transform(Z)
+
+Z.shape
+>>>(201, 4)
+Z_pr.shape
+>>>(201, 15)
+------------------------------------------------------------
+PIPELINES
+Data Pipelines simplify the steps of processing the data. We use the module Pipeline to create a pipeline. We also use StandardScaler as a step in our pipeline.
+------------------------------------------------------------
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+Input=[('scale',StandardScaler()), ('polynomial', PolynomialFeatures(include_bias=False)), ('model',LinearRegression())]
+pipe=Pipeline(Input)
+>>>
+	Pipeline(memory=None,
+     		 steps =[('scale', StandardScaler(copy=True, with_mean=True, with_std=True)),
+     		 	     ('polynomial', PolynomialFeatures(degree=2, include_bias=False, interaction_only=False)), 
+     		 	     ('model', LinearRegression(copy_X=True, fit_intercept=True, n_jobs=None, normalize=False))
+     		 	    ])
+
+pipe.fit(Z,y)
+>>> 
+	Pipeline(memory=None,
+     		 steps =[('scale', StandardScaler(copy=True, with_mean=True, with_std=True)), 
+     		        ('polynomial', PolynomialFeatures(degree=2, include_bias=False, interaction_only=False)), 
+     		        ('model', LinearRegression(copy_X=True, fit_intercept=True, n_jobs=None, normalize=False))])
+
+ypipe=pipe.predict(Z)
+ypipe[0:4]
+>>> array([13102.74784201, 13102.74784201, 18225.54572197, 10390.29636555])
+
+distplot()
+plt.figure(figsize=(width, height))
+
+
+ax1 = sns.distplot(df['price'], hist=False, color="r", label="Actual Value")
+sns.distplot(ypipe, hist=False, color="b", label="Fitted Values" , ax=ax1)
+
+
+plt.title('Actual vs Fitted Values for Price')
+plt.xlabel('Price (in dollars)')
+plt.ylabel('Proportion of Cars')
+
+plt.show()
+plt.close()
+
+------------------------------------------------------------
+# Write your code below and press Shift+Enter to execute 
+pipe_2 = Pipeline([('scale',StandardScaler()), ('model',LinearRegression())])
+pipe_2.fit(Z,y)
+ypipe_2=pipe_2.predict(Z)
+------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
 R-SQUARED AND MSE FOR IN-SAMPLE EVALUATION
+Two very important measures that are often used in Statistics to determine the accuracy of a model are:
+	R^2 / R-squared
+	Mean Squared Error (MSE)
+
+R-squared
+	R squared, also known as the coefficient of determination, is a measure to indicate how close the data is to the fitted regression line.
+	The value of the R-squared is the percentage of variation of the response variable (y) that is explained by a linear model.
+
+Mean Squared Error (MSE)
+	The Mean Squared Error measures the average of the squares of errors, that is, the difference between actual value (y) and the estimated value (ŷ).
+
+1. Model 1: Simple Linear Regression
+	lm.fit(X, Y) #highway_mpg_fit
+	print('The R-square is: ', lm.score(X, Y))# Find the R^2
+		>>>The R-square is:  0.4965911884339175
+		"We can say that ~ 49.659% of the variation of the price is explained by this simple linear model 'horsepower_fit'."
+
+	Yhat=lm.predict(X)
+	from sklearn.metrics import mean_squared_error
+	mse = mean_squared_error(df['price'], Yhat)
+	print('The mean square error of price and predicted value is: ', mse)
+		>>>The mean square error of price and predicted value is:  15021126.02517414
+
+
+2. Model 2: Multiple Linear Regression
+	lm.fit(Z, Y) #highway_mpg_fit
+	print('The R-square is: ', lm.score(Z, Y))# Find the R^2
+		>>>The R-square is:  0.8093562806577458
+		"We can say that ~ 80.896 % of the variation of price is explained by this multiple linear regression 'multi_fit'."
+
+	Y_predict_multifit=lm.predict(Z)
+	from sklearn.metrics import mean_squared_error
+	mse = mean_squared_error(Y, Y_predict_multifit)
+	print('The mean square error of price and predicted value using multifit is: ', mse)
+		>>>The mean square error of price and predicted value using multifit is:  11980366.870726489
+
+3. Model 3: Polynomial Fit
+	from sklearn.metrics import r2_score
+	r_squared = r2_score(y, p(x))
+	print('The R-square value is: ', r_squared)
+		>>>The R-square value is:  0.6741946663906517
+
+	mean_squared_error(df['price'], p(x))
+		>>> 20474146.426361226
+
+
+
+
+
+
+
+
+
 PREDICTION AND DECISION MAKING
+Now that we have visualized the different models, and generated the R-squared and MSE values for the fits, how do we determine a good model fit?
+
+What is a good R-squared value?
+	When comparing models, the model with the higher R-squared value is a better fit for the data.
+
+What is a good MSE?
+	When comparing models, the model with the smallest MSE value is a better fit for the data.
+
+Let`s take a look at the values for the different models.
+Simple Linear Regression: Using Highway-mpg as a Predictor Variable of Price.
+	R-squared: 0.49659118843391759
+	MSE: 3.16 x10^7
+
+Multiple Linear Regression: Using Horsepower, Curb-weight, Engine-size, and Highway-mpg as Predictor Variables of Price.
+	R-squared: 0.80896354913783497
+	MSE: 1.2 x10^7
+
+Polynomial Fit: Using Highway-mpg as a Predictor Variable of Price.
+	R-squared: 0.6741946663906514
+	MSE: 2.05 x 10^7
+
+Simple Linear Regression model (SLR) vs Multiple Linear Regression model (MLR)
+	Usually, the more variables you have, the better your model is at predicting, but this is not always true. Sometimes you may not have enough data, you may run into numerical problems, or many of the variables may not be useful and or even act as noise. As a result, you should always check the MSE and R^2.
+
+	So to be able to compare the results of the MLR vs SLR models, we look at a combination of both the R-squared and MSE to make the best conclusion about the fit of the model.
+
+	MSEThe MSE of SLR is 3.16x10^7 while MLR has an MSE of 1.2 x10^7. The MSE of MLR is much smaller.
+	R-squared: In this case, we can also see that there is a big difference between the R-squared of the SLR and the R-squared of the MLR. The R-squared for the SLR (~0.497) is very small compared to the R-squared for the MLR (~0.809).
+	This R-squared in combination with the MSE show that "MLR SEEMS LIKE THE BETTER MODEL FIT IN THIS CASE, COMPARED TO SLR."
+
+Simple Linear Model (SLR) vs Polynomial Fit
+	MSE: We can see that Polynomial Fit brought down the MSE, since this MSE is smaller than the one from the SLR.
+	R-squared: The R-squared for the Polyfit is larger than the R-squared for the SLR, so the Polynomial Fit also brought up the R-squared quite a bit.
+	Since the Polynomial Fit resulted in a lower MSE and a higher R-squared, we can conclude that this was a better fit model than the simple linear regression for predicting Price with Highway-mpg as a predictor variable.
+
+Multiple Linear Regression (MLR) vs Polynomial Fit
+	MSE: The MSE for the MLR is smaller than the MSE for the Polynomial Fit.
+	R-squared: The R-squared for the MLR is also much larger than for the Polynomial Fit.
+
+
+Conclusion:
+Comparing these three models, we conclude that the "MLR model is the best model" to be able to predict price from our dataset. This result makes sense, since we have 27 variables in total, and we know that more than one of those variables are potential predictors of the final car price.
+
+
 
 ************************************************************************************************************
 MODULE 5 - WORKING WITH DATA IN PYTHON
 ************************************************************************************************************
-MODEL  EVALUATION    
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+def DistributionPlot(RedFunction, BlueFunction, RedName, BlueName, Title):
+    width = 12
+    height = 10
+    plt.figure(figsize=(width, height))
+
+    ax1 = sns.distplot(RedFunction, hist=False, color="r", label=RedName)
+    ax2 = sns.distplot(BlueFunction, hist=False, color="b", label=BlueName, ax=ax1)
+
+    plt.title(Title)
+    plt.xlabel('Price (in dollars)')
+    plt.ylabel('Proportion of Cars')
+
+    plt.show()
+    plt.close()
+
+def PollyPlot(xtrain, xtest, y_train, y_test, lr,poly_transform):
+    width = 12
+    height = 10
+    plt.figure(figsize=(width, height))
+    
+    
+    #training data 
+    #testing data 
+    # lr:  linear regression object 
+    #poly_transform:  polynomial transformation object 
+ 
+    xmax=max([xtrain.values.max(), xtest.values.max()])
+
+    xmin=min([xtrain.values.min(), xtest.values.min()])
+
+    x=np.arange(xmin, xmax, 0.1)
+
+
+    plt.plot(xtrain, y_train, 'ro', label='Training Data')
+    plt.plot(xtest, y_test, 'go', label='Test Data')
+    plt.plot(x, lr.predict(poly_transform.fit_transform(x.reshape(-1, 1))), label='Predicted Function')
+    plt.ylim([-10000, 60000])
+    plt.ylabel('Price')
+    plt.legend()
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+MODEL  EVALUATION 
+
+x_train_1,x_test_1,y_train_1,y_test_1 = train_test_split(x_data,y_data,test_size=0.10, random_state=0)
+lre_1 = LinearRegression()
+lre_1.fit(x_train_1[['horsepower']], y_train_1)
+print(lre_1.score(x_test_1[['horsepower']], y_test_1))
+print(lre_1.score(x_train_1[['horsepower']], y_train_1))
+
+
+\cross_val_score()
+Sometimes you do not have sufficient testing data; as a result, you may want to perform Cross-validation. Let`s go over several methods that you can use for Cross-validation.
+
+from sklearn.model_selection import cross_val_score
+Rcross = cross_val_score(lre, x_data[['horsepower']], y_data, cv=4)
+	"The default scoring is R^2; each element in the array has the average R^2 value in the fold:"
+	>>> array([0.7746232 , 0.51716687, 0.74785353, 0.04839605])
+
+print("The mean of the folds are", Rcross.mean(), "and the standard deviation is" , Rcross.std())
+	>>> The mean of the folds are 0.522009915042119 and the standard deviation is 0.2911839444756029
+	
+We can use negative squared error as a score by setting the parameter 'scoring' metric to 'neg_mean_squared_error'.
+
+-1 * cross_val_score(lre,x_data[['horsepower']], y_data,cv=4,scoring='neg_mean_squared_error')
+	>>>array([20254142.84026704, 43745493.26505169, 12539630.34014931, 17561927.72247591])
+
+\cross_val_predict()
+The function splits up the data into the specified number of folds, using one fold to get a prediction while the rest of the folds are   used as test data.
+from sklearn.model_selection import cross_val_predict
+yhat = cross_val_predict(lre,x_data[['horsepower']], y_data,cv=4)
+yhat.shape
+	>>> (201,)
+y_data.shape
+	>>> (201,)
+
+
 OVER FITTING, UNDER FITTING AND MODEL SELECTION 
+\Multiple LR
+lr = LinearRegression()
+lr.fit(x_train[['horsepower', 'curb-weight', 'engine-size', 'highway-mpg']], y_train)
+yhat_train = lr.predict(x_train[['horsepower', 'curb-weight', 'engine-size', 'highway-mpg']])
+yhat_test = lr.predict(x_test[['horsepower', 'curb-weight', 'engine-size', 'highway-mpg']])
+#Figure 1
+DistributionPlot(y_train, yhat_train, "Actual Values (Train)", "Predicted Values (Train)", Title)
+#Figure 2
+DistributionPlot(y_test,yhat_test,"Actual Values (Test)","Predicted Values (Test)",Title)
+
+"Comparing Figure 1 and Figure 2; it is evident the distribution of the test data in Figure 1 is much better at fitting the data. This difference in Figure 2 is apparent where the ranges are from 5000 to 15 000. This is where the distribution shape is exceptionally different."
+
+\Polynomial LR
+
+"We see the R^2 for the training data is 0.5567 while the R^2 on the test data was -29.87. The lower the R^2, the worse the model, a Negative R^2 is a sign of overfitting."
+
+from IPython.display import display
+from IPython.html import widgets 
+from IPython.display import display
+from ipywidgets import interact, interactive, fixed, interact_manual
+
+def f(order, test_data):
+    x_train, x_test, y_train, y_test = train_test_split(x_data, y_data, test_size=test_data, random_state=0)
+    pr = PolynomialFeatures(degree=order)
+    x_train_pr = pr.fit_transform(x_train[['horsepower']])
+    x_test_pr = pr.fit_transform(x_test[['horsepower']])
+    poly = LinearRegression()
+    poly.fit(x_train_pr,y_train)
+    PollyPlot(x_train[['horsepower']], x_test[['horsepower']], y_train,y_test, poly, pr)
+interact(f, order=(0, 6, 1), test_data=(0.05, 0.95, 0.05))
+
+
+
+
+
+pr1=PolynomialFeatures(degree=2)
+x_train_pr1=pr.fit_transform(x_train[['horsepower', 'curb-weight', 'engine-size', 'highway-mpg']])
+x_test_pr1=pr.fit_transform(x_test[['horsepower', 'curb-weight', 'engine-size', 'highway-mpg']])
+x_train_pr1.shape >>> (110, 15) # From 4 to 5 features 
+from sklearn import linear_model
+poly1=linear_model.LinearRegression().fit(x_train_pr1,y_train)
+#Predict
+yhat_test1=poly1.predict(x_test_pr1)
+#plot
+Title='Distribution  Plot of  Predicted Value Using Test Data vs Data Distribution of Test Data'
+DistributionPlot(y_test, yhat_test1, "Actual Values (Test)", "Predicted Values (Test)", Title)
+
+*NOTE*
+	"The predicted value is lower than actual value for cars where the price  $ 10,000 range, conversely the predicted price is larger than the price cost in the $30, 000 to $40,000 range. As such the model is not as accurate in these ranges ."
+
+
+-----------------------------------------------------------------------------------------------------------
 RIDGE REGRESSION
+
+#perform a degree two polynomial transformation on our data.
+pr=PolynomialFeatures(degree=2)
+x_train_pr=pr.fit_transform(x_train[['horsepower', 'curb-weight', 'engine-size', 'highway-mpg','normalized-losses','symboling']])
+x_test_pr=pr.fit_transform(x_test[['horsepower', 'curb-weight', 'engine-size', 'highway-mpg','normalized-losses','symboling']])
+
+from sklearn.linear_model import Ridge
+RigeModel=Ridge(alpha=0.1) # setting the regularization parameter to 0.1
+
+RigeModel.fit(x_train_pr, y_train)
+>>> Ridge(alpha=0.1, copy_X=True, fit_intercept=True, max_iter=None,
+   normalize=False, random_state=None, solver='auto', tol=0.001)
+
+yhat = RigeModel.predict(x_test_pr)
+
+print('predicted:', yhat[0:4])
+print('test set :', y_test[0:4].values)
+>>>	predicted: [ 6567.83081933  9597.97151399 20836.22326843 19347.69543463]
+	test set : [ 6295. 			10698. 		  13860. 		 13499.]
+
+# We select the value of Alfa that minimizes the test error, for example, we can use a for loop.
+Rsqu_test = []
+Rsqu_train = []
+dummy1 = []
+ALFA = 10 * np.array(range(0,1000))
+for alfa in ALFA:
+    RigeModel = Ridge(alpha=alfa) 
+    RigeModel.fit(x_train_pr, y_train)
+    Rsqu_test.append(RigeModel.score(x_test_pr, y_test))
+    Rsqu_train.append(RigeModel.score(x_train_pr, y_train))
+
+# We can plot out the value of R^2 for different Alphas
+width = 12
+height = 10
+plt.figure(figsize=(width, height))
+
+plt.plot(ALFA,Rsqu_test, label='validation data  ')
+plt.plot(ALFA,Rsqu_train, 'r', label='training Data ')
+plt.xlabel('alpha')
+plt.ylabel('R^2')
+plt.legend()
+*NOTE*	"The red line in figure 6 represents the R^2 of the test data, as Alpha increases the R^2 decreases; therefore as Alfa increases the model performs worse on the test data. The blue line represents the R^2 on the validation data, as the value for Alfa increases the R^2 decreases."
+
+#Perform Ridge regression and calculate the R^2 using the polynomial features, use the training data to train the model and test data to test the model. The parameter alpha should be set to 10.
+RigeModel = Ridge(alpha=10) 
+RigeModel.fit(x_train_pr, y_train)
+RigeModel.score(x_test_pr, y_test)
+-----------------------------------------------------------------------------------------------------------
 GRID SEARCH 
+The term Alfa is a hyperparameter, sklearn has the class GridSearchCV to make the process of finding the best hyperparameter simpler.
+
+from sklearn.model_selection import GridSearchCV
+parameters1= [{'alpha': [0.001,0.1,1, 10, 100, 1000, 10000, 100000, 100000]}]
+	>>> [{'alpha': [0.001, 0.1, 1, 10, 100, 1000, 10000, 100000, 100000]}]
+RR=Ridge()
+	>>> Ridge(alpha=1.0, copy_X=True, fit_intercept=True, max_iter=None, normalize=False, random_state=None, solver='auto', tol=0.001)
+
+Grid1 = GridSearchCV(RR, parameters1,cv=4)
+#Fit
+Grid1.fit(x_data[['horsepower', 'curb-weight', 'engine-size', 'highway-mpg']], y_data)
+'''GridSearchCV(cv=4, error_score='raise-deprecating',
+       estimator=Ridge(alpha=1.0, copy_X=True, fit_intercept=True, max_iter=None,
+   normalize=False, random_state=None, solver='auto', tol=0.001),
+       fit_params=None, iid='warn', n_jobs=None,
+       param_grid=[{'alpha': [0.001, 0.1, 1, 10, 100, 1000, 10000, 100000, 100000]}],
+       pre_dispatch='2*n_jobs', refit=True, return_train_score='warn',
+       scoring=None, verbose=0)'''
+BestRR=Grid1.best_estimator_
+>>> Ridge(alpha=10000, copy_X=True, fit_intercept=True, max_iter=None, normalize=False, random_state=None, solver='auto', tol=0.001)
+
+#test our model on the test data
+BestRR.score(x_test[['horsepower', 'curb-weight', 'engine-size', 'highway-mpg']], y_test)
+>>> 0.8411649831036149
+
+
+Perform a grid search for the alpha parameter and the normalization parameter, then find the best values of the parameters
+parameters2= [{'alpha': [0.001,0.1,1, 10, 100, 1000,10000,100000,100000],'normalize':[True,False]} ]
+Grid2 = GridSearchCV(Ridge(), parameters2,cv=4)
+Grid2.fit(x_data[['horsepower', 'curb-weight', 'engine-size', 'highway-mpg']],y_data)
+Grid2.best_estimator_
+Grid2.best_estimator_.score(x_test[['horsepower', 'curb-weight', 'engine-size', 'highway-mpg']], y_test)
+>>> 0.840859719294301
+
+
+
+
+
+
+
+
+
+
 MODEL REFINEMENT 
 
 
 
 ********************************* CREDITS ***************************************************************************
  Mahdi Noorian PhD, Joseph Santarcangelo, Bahare Talayian, Eric Xiao, Steven Dong, Parizad, Hima Vsudevan and Fiorella Wenver and Yi Yao
+https://courses.cognitiveclass.ai/certificates/bfa29ffa0a75487382af4695c1958427
