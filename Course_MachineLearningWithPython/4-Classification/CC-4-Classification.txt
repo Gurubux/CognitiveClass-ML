@@ -237,11 +237,11 @@ Unfortunately, Sklearn Decision Trees do not handle categorical variables. But s
 X = my_data[['Age', 'Sex', 'BP', 'Cholesterol', 'Na_to_K']].values
 X[0:5]
 >>>
-array([[23, 'F', 'HIGH', 'HIGH', 25.355],
-       [47, 'M', 'LOW', 'HIGH', 13.093],
-       [47, 'M', 'LOW', 'HIGH', 10.113999999999999],
-       [28, 'F', 'NORMAL', 'HIGH', 7.797999999999999],
-       [61, 'F', 'LOW', 'HIGH', 18.043]], dtype=object)
+	array([[23, 'F', 'HIGH', 'HIGH', 25.355],
+	       [47, 'M', 'LOW', 'HIGH', 13.093],
+	       [47, 'M', 'LOW', 'HIGH', 10.113999999999999],
+	       [28, 'F', 'NORMAL', 'HIGH', 7.797999999999999],
+	       [61, 'F', 'LOW', 'HIGH', 18.043]], dtype=object)
 
 TO
 
@@ -270,16 +270,16 @@ X[:,3] = le_Chol.fit_transform(X[:,3])
 
 X[0:5]
 >>>
-array([[23, 0, 0, 0, 25.355],
-       [47, 1, 1, 0, 13.093],
-       [47, 1, 1, 0, 10.113999999999999],
-       [28, 0, 2, 0, 7.797999999999999],
-       [61, 0, 1, 0, 18.043]], dtype=object)
+	array([[23, 0, 0, 0, 25.355],
+	       [47, 1, 1, 0, 13.093],
+	       [47, 1, 1, 0, 10.113999999999999],
+	       [28, 0, 2, 0, 7.797999999999999],
+	       [61, 0, 1, 0, 18.043]], dtype=object)
 
 
 drugTree = DecisionTreeClassifier(criterion="entropy", max_depth = 4)
 >>>
-DecisionTreeClassifier(class_weight=None, criterion='entropy', max_depth=4,
+	DecisionTreeClassifier(class_weight=None, criterion='entropy', max_depth=4,
             max_features=None, max_leaf_nodes=None,
             min_impurity_decrease=0.0, min_impurity_split=None,
             min_samples_leaf=1, min_samples_split=2,
@@ -293,8 +293,9 @@ predTree = drugTree.predict(X_testset)
 
 print (predTree [0:5])
 print (y_testset [0:5].values)
-['drugY' 'drugX' 'drugX' 'drugX' 'drugX']
-['drugY' 'drugX' 'drugX' 'drugX' 'drugX']
+>>>
+	['drugY' 'drugX' 'drugX' 'drugX' 'drugX']
+	['drugY' 'drugX' 'drugX' 'drugX' 'drugX']
 
 from sklearn import metrics
 import matplotlib.pyplot as plt
@@ -305,6 +306,44 @@ x = np.array([y_testset== predTree]).sum()
 x/len(y_testset)
 >>>
 0.98333333333
+
+
+plot_confusion_matrix(y_testset,predTree)
+# https://scikit-learn.org/stable/auto_examples/model_selection/plot_confusion_matrix.html
+[[ 7  0  0  0  0]
+ [ 0  5  0  0  0]
+ [ 0  0  5  0  0]
+ [ 0  0  0 20  1]
+ [ 0  0  0  0 22]]
+
+ Normalized confusion matrix
+[[1.         0.         0.         0.         0.        ]
+ [0.         1.         0.         0.         0.        ]
+ [0.         0.         1.         0.         0.        ]
+ [0.         0.         0.         0.95238095 0.04761905]
+ [0.         0.         0.         0.         1.        ]]
+
+
+ #Visualizing Decision Tree
+from sklearn.externals.six import StringIO
+import pydotplus
+import matplotlib.image as mpimg
+from sklearn import tree
+%matplotlib inline 
+
+dot_data = StringIO()
+filename = "drugtree.png"
+featureNames = my_data.columns[0:5]
+targetNames = my_data["Drug"].unique().tolist()
+out=tree.export_graphviz(drugTree,feature_names=featureNames, out_file=dot_data, class_names= np.unique(y_trainset), filled=True,  special_characters=True,rotate=False)  
+graph = pydotplus.graph_from_dot_data(dot_data.getvalue())  
+graph.write_png(filename)
+img = mpimg.imread(filename)
+plt.figure(figsize=(100, 200))
+plt.imshow(img,interpolation='nearest')
+"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/4-Classification/DT_export_graphviz_code.png"
+
+
 
 **************************************************************************************
 INTRO TO LOGISTIC REGRESSION
