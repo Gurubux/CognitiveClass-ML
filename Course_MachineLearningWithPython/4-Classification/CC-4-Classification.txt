@@ -117,10 +117,195 @@ Log Loss :   		y log(ŷ) + (1-y) log(1- ŷ)
 
 
 LAB: KNN
+from sklearn.neighbors import KNeighborsClassifier
+
+k = 4
+#Train Model and Predict  
+neigh = KNeighborsClassifier(n_neighbors = k).fit(X_train,y_train)
+>>>
+	KNeighborsClassifier(algorithm='auto', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=None, n_neighbors=4, p=2,
+           weights='uniform')
+
+yhat = neigh.predict(X_test)
+yhat[0:5]
+>>>
+	array([1, 1, 3, 2, 4])
+
+from sklearn import metrics
+print("Train set Accuracy: ", metrics.accuracy_score(y_train, neigh.predict(X_train)))
+print("Test set Accuracy: ", metrics.accuracy_score(y_test, yhat))
+>>>
+	Train set Accuracy:  0.5475
+	Test set Accuracy:  0.32
+
+# We can calucalte the accuracy of KNN for different Ks.
+Ks = 10
+mean_acc = np.zeros((Ks-1))
+std_acc = np.zeros((Ks-1))
+ConfustionMx = [];
+for n in range(1,Ks):
+    
+    #Train Model and Predict  
+    neigh = KNeighborsClassifier(n_neighbors = n).fit(X_train,y_train)
+    yhat=neigh.predict(X_test)
+    mean_acc[n-1] = metrics.accuracy_score(y_test, yhat)
+    std_acc[n-1]=np.std(yhat==y_test)/np.sqrt(yhat.shape[0])
+
+mean_acc
+>>> array([0.3  , 0.29 , 0.315, 0.32 , 0.315, 0.31 , 0.335, 0.325, 0.34 ])
+
+#Plot model accuracy for Different number of Neighbors
+plt.plot(range(1,Ks),mean_acc,'g')
+plt.fill_between(range(1,Ks),mean_acc - 1 * std_acc,mean_acc + 1 * std_acc, alpha=0.10)
+plt.legend(('Accuracy ', '+/- 3xstd'))
+plt.ylabel('Accuracy ')
+plt.xlabel('Number of Nabors (K)')
+plt.tight_layout()
+plt.show()
+
+\ACCURACY 			= tp + tn / (Total)
+
+
+
+print(classification_report(y_test, y_pred))
+>>>
+	              precision    recall  	  f1-score   support
+
+           1       0.37      	0.51      0.43        51
+           2       0.34      	0.34      0.34        44
+           3       0.33      	0.33      0.33        54
+           4       0.29      	0.18      0.22        51
+
+   micro avg       0.34      	0.34      0.34        200
+   macro avg       0.33      	0.34      0.33        200
+weighted avg       0.33      	0.34      0.33        200
+
+
+print( "The best accuracy was with", mean_acc.max(), "with k=", mean_acc.argmax()+1) 
+>>>
+	The best accuracy was with 0.34 with k= 9
+
+
+plot_confusion_matrix(y_test,y_pred, classes=np.asarray(["0", "1", "2","3"]), normalize=True)
+plot_confusion_matrix(y_test,y_pred, classes=np.asarray(["0", "1", "2","3"]), normalize=False)
+
 **************************************************************************************
 INTRO TO DECISION TREES
 BUILDING DECISION TREES
+- Decision trees are built using recursive partitioning to classify the data.
+- The algorithm chooses the most predictive feature to split the data on.
+
+"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/4-Classification/DT.PNG"
+
+\Steps:
+1. Choose an attribute(feature/column) from your data set.
+2. Calculate the significance of attribute in splitting of data.
+3. Split data based on the value of the best attribute
+4. Go to Step 1
+"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/4-Classification/DT_steps.PNG"
+
+
+
+
+\Entropy:
+Entropy = - p(A)log(p(A)) - p(B)log(p(B))
+The lower the entropy, the less uniform the distribution and the purer the node.
+Entropy = 0 -> Pure node
+Entropy = 1 -> uniform distribution of data
+"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/4-Classification/DT_Entropy.PNG"
+"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/4-Classification/DT_Entropy_1.PNG"
+"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/4-Classification/DT_Entropy_2.PNG"
+"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/4-Classification/DT_Entropy_3.PNG"
+"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/4-Classification/DT_Entropy_4.PNG"
+
+\Information Gain:
+Information Gain = Entropy before Split - Weighted Entropy after Split
+"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/4-Classification/DT_IG.PNG"
+"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/4-Classification/DT_IG_1.PNG"
+
 LAB: DECISION TREES
+	Age	Sex	BP		Cholesterol	Na_to_K	Drug
+0	23	F	HIGH	HIGH		25.355	drugY
+1	47	M	LOW		HIGH		13.093	drugC
+2	47	M	LOW		HIGH		10.114	drugC
+3	28	F	NORMAL	HIGH		7.798	drugX
+4	61	F	LOW		HIGH		18.043	drugY
+
+
+Unfortunately, Sklearn Decision Trees do not handle categorical variables. But still we can convert these features to numerical values. pandas.get_dummies() Convert categorical variable into dummy/indicator variables.
+X = my_data[['Age', 'Sex', 'BP', 'Cholesterol', 'Na_to_K']].values
+X[0:5]
+>>>
+array([[23, 'F', 'HIGH', 'HIGH', 25.355],
+       [47, 'M', 'LOW', 'HIGH', 13.093],
+       [47, 'M', 'LOW', 'HIGH', 10.113999999999999],
+       [28, 'F', 'NORMAL', 'HIGH', 7.797999999999999],
+       [61, 'F', 'LOW', 'HIGH', 18.043]], dtype=object)
+
+TO
+
+from sklearn import preprocessing
+le_sex = preprocessing.LabelEncoder()
+le_sex.fit(['F','M'])
+X[:,1] = le_sex.transform(X[:,1]) 
+
+
+le_BP = preprocessing.LabelEncoder()
+le_BP.fit([ 'LOW', 'NORMAL', 'HIGH'])
+X[:,2] = le_BP.transform(X[:,2])
+
+
+le_Chol = preprocessing.LabelEncoder()
+le_Chol.fit([ 'NORMAL', 'HIGH'])
+X[:,3] = le_Chol.transform(X[:,3]) 
+
+X[0:5]
+
+OR
+
+X[:,1] = le_sex.fit_transform(X[:,1])
+X[:,2] = le_BP.fit_transform(X[:,2])
+X[:,3] = le_Chol.fit_transform(X[:,3])
+
+X[0:5]
+>>>
+array([[23, 0, 0, 0, 25.355],
+       [47, 1, 1, 0, 13.093],
+       [47, 1, 1, 0, 10.113999999999999],
+       [28, 0, 2, 0, 7.797999999999999],
+       [61, 0, 1, 0, 18.043]], dtype=object)
+
+
+drugTree = DecisionTreeClassifier(criterion="entropy", max_depth = 4)
+>>>
+DecisionTreeClassifier(class_weight=None, criterion='entropy', max_depth=4,
+            max_features=None, max_leaf_nodes=None,
+            min_impurity_decrease=0.0, min_impurity_split=None,
+            min_samples_leaf=1, min_samples_split=2,
+            min_weight_fraction_leaf=0.0, presort=False, random_state=None,
+            splitter='best')
+
+
+drugTree.fit(X_trainset,y_trainset)
+
+predTree = drugTree.predict(X_testset)
+
+print (predTree [0:5])
+print (y_testset [0:5].values)
+['drugY' 'drugX' 'drugX' 'drugX' 'drugX']
+['drugY' 'drugX' 'drugX' 'drugX' 'drugX']
+
+from sklearn import metrics
+import matplotlib.pyplot as plt
+print("DecisionTrees's Accuracy: ", metrics.accuracy_score(y_testset, predTree))
+OR
+#calculate accuracy score without sklearn
+x = np.array([y_testset== predTree]).sum()
+x/len(y_testset)
+>>>
+0.98333333333
+
 **************************************************************************************
 INTRO TO LOGISTIC REGRESSION
 LOGISTIC VS LINEAR REGRESSION
