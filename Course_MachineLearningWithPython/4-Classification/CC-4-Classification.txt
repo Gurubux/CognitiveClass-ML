@@ -1,0 +1,132 @@
+INTRO TO CLASSIFICATION
+
+K-NEAREST NEIGHBORS
+EVALUATION METRICS
+LAB: KNN
+
+INTRO TO DECISION TREES
+BUILDING DECISION TREES
+LAB: DECISION TREES
+
+INTRO TO LOGISTIC REGRESSION
+LOGISTIC VS LINEAR REGRESSION
+LAB: LOGISTIC REGRESSION
+
+SUPPORT VECTOR MACHINE
+LAB: SUPPORT VECTOR MACHINES
+
+GRADED REVIEW QUESTIONS
+
+**************************************************************************************
+INTRO TO CLASSIFICATION
+In Machine Learning, classification is a supervised learning approach, which can be thought of as a means of categorizing or "classifying" some unknown items into a discrete set of "classes."
+The goal of a loan default predictor is to use existing loan default data, which is information about the customers (such as age, income, education, etc.), to build a classifier, pass a new customer or potential future defaulter to the model, and then label it (i.e. the data points) as "Defaulter" or "Not Defaulter", or for example, 0 or 1. This is how a classifier predicts an unlabeled test case.
+We can also build classifier models For both binary classification and multi-class classification.
+
+Business Use-cases : 
+	To predict the category to which a customer belongs;
+	For Churn detection, where we predict whether a customer switches to another provider or brand; 
+	Or to predict whether or not a customer responds to a particular advertising campaign.
+
+Applications :
+	email filtering, 
+	speech recognition, 
+	handwriting recognition, 
+	bio-metric identification, 
+	document classification, and much more.
+
+Algorithms : 
+	1. Decision Trees, ✔
+	2. Naïve Bayes, 
+	3. Linear Discriminant Analysis, 
+	4. K-nearest neighbor,✔
+	5. Logistic regression, ✔
+	6. Neural Networks, 
+	7. Support Vector Machines.✔
+
+**************************************************************************************
+K-NEAREST NEIGHBORS
+The example focuses on using demographic data, such as region, age, and marital status, to predict usage patterns. The target field, called custcat, has four possible values that correspond to the four customer groups, as follows: Basic Service, E-Service, Plus Service, and Total Service. Our objective is to build a classifier, for example using the rows 0 to 7, to predict the class of row 8.
+
+"How can we find the class of this customer?	"
+	Can we find one of the closest cases and assign the same class label to our new customer?	Can we also say that the class of our new customer is most probably group 4 (i.e. total	service) because its nearest neighbor is also of "class 4"?	Yes, we can. In fact, it is the first-nearest neighbor.
+
+"To what extent can we trust our judgment, which is based on the first nearest neighbor?"
+	It might be a poor judgment, especially if the first nearest neighbor is a very specific case, or an "outlier", correct? Now, let’s look at our scatter plot again. Rather than choose the first nearest neighbor, what" if we chose the five nearest neighbors", and did a "majority vote" among them to define the class of our new customer? In this case, we’d see that three out of five nearest neighbors tell us to go For "class 3", which is ”Plus service.”
+	In this case, the value of K in the k-nearest neighbors algorithm is 5.
+
+K-NEAREST NEIGHBORS. 
+	The k-nearest-neighbors algorithm is a classification algorithm that takes a bunch of labelled points and uses them to learn how to label other points. 
+	This algorithm classifies cases based on their similarity to other cases. In k-nearest neighbors, data points that are near each other are said to be "neighbors". 
+	K-nearest neighbors is based on this paradigm: "“Similar cases with the same class labels are near each other.”" Thus, the distance between two cases is a measure of their dissimilarity. 
+	There are different ways to calculate the similarity, or conversely, the distance or dissimilarity of two data points. For example, this can be done using  "Euclidian distance".
+
+K-NN Algorithm working :
+	1. Pick a value For K.
+	2. Calculate the distance of unknown case from all cases (holdout from each of the cases in the dataset).
+	3. Search for the K observations in the training data that are ‘nearest’ to the measurements of the unknown data point.
+	4. Predict the response of the unknown data point using the "most popular response" value from the K nearest neighbors.
+
+There are two parts in this algorithm that might be a bit confusing.
+	First, "how to select the correct K";
+	Second, "how to compute the similarity between cases", for example, among customers?
+
+	"how to compute the similarity between cases"
+		Assume that we have two customers, customer 1 and customer 2. And, For a moment, assume that these 2 customers have only one feature, Age. We can easily use a specific type of Minkowski distance to calculate the distance of these 2 customers. It is indeed, the Euclidian distance. Distance of x1 from x2 is root of 34 minus 30 to power of 2, which is 4. What about if we have more than one feature, for example Age and Income? If we have income and age For each customer, we can still use the same formula, but this time, we’re using it in a 2-dimensional space. We can also use the same distance matrix For multi-dimensional vectors. Of course, we have to normalize our feature set to get the accurate dissimilarity measure. There are other dissimilarity measures as well that can be used For this purpose but, as mentioned, it is highly dependent on data type and also the domain that classification is done For it.
+					
+					dist((x, y), (a, b)) = √(x - a)² + (y - b)²
+					Example - age
+						dist(age1, age2)	 = √(age1 - age2)²
+					Example - age and Income
+						dist((age1,Income1), (age2,Income2)  =  √(age1 - age2)²  + (Income1 - Income2)²
+
+	"how to select the correct K" 
+		K in k-nearest neighbors, is the number of nearest neighbors to examine. It is supposed to be specified by the user. So, how do we choose the right K? Assume that we want to find the class of the customer noted as question mark on the chart. What happens if we choose a very low value of K, let’s say, k=1? The first nearest point would be Blue, which is class 1. This would be a bad prediction, since more of the points around it are Magenta, or class 4. In fact, since its nearest neighbor is Blue, we can say that we captured the noise in the data, or we chose one of the points that was an anomaly in the data. 
+
+		OVER-FITTING - A low value of K causes a highly complex model as well, which might result in over-fitting of the model. It means the prediction process is not generalized enough to be used for out-of-sample cases. Out-of-sample data is data that is outside of the dataset used to train the model. In other words, it cannot be trusted to be used for prediction of unknown samples. It’s important to remember that over-fitting is bad, as we want a general model that works for any data, not just the data used for training. 
+		UNDER-FITTING - Now, on the opposite side of the spectrum, if we choose a very high value of K, such as K=20, then the model becomes overly generalized. 
+
+		So, how we can find the best value for K? The general solution is to reserve a part of your data for testing the accuracy of the model. Once you’ve done so, choose k =1, and then use the training part for modeling, and calculate the accuracy of prediction using all samples in your test set. Repeat this process, increasing the k, and see which k is best for your model. For example, in our case, k=4 will give us the best accuracy.	
+
+
+Nearest neighbors analysis can also be used to compute values For a "continuous target".
+	In this situation, the average or median target value of the nearest neighbors is used to obtain the predicted value for the new case.
+	For example, assume that you are predicting the price of a home based on its feature set, such as number of rooms, square footage, the year it was built, and so on. You can easily find the three nearest neighbor houses, of course not only based on distance, but also based on all the attributes, and then predict the price of the house, as the "median" of neighbors.
+
+EVALUATION METRICS
+Jaccard index
+					|y∩ŷ|			   |y∩ŷ|
+	j(y , ŷ)   =   -------   =   ------------------					   ( 0 ....... to ........ 1) higher the better					
+					|y∪ŷ|		  |y| + |ŷ| - |y∩ŷ|
+
+
+
+F1-score - Confusion Matrix 
+		Precision = Tp / (Tp + FP)
+		Recall 	  = Tp / (Tp + FN)
+		F1-score  = 2 * (Precision * Recall) / (Precision + Recall)   ( 0 ....... to ........ 1) higher the better
+
+
+Log Loss :   		y log(ŷ) + (1-y) log(1- ŷ)
+		 : -1/n  Σ [y log(ŷ) + (1-y) log(1- ŷ)]
+		 															 ( 0 ....... to ........ 1)  lower the better
+
+
+
+
+
+
+LAB: KNN
+**************************************************************************************
+INTRO TO DECISION TREES
+BUILDING DECISION TREES
+LAB: DECISION TREES
+**************************************************************************************
+INTRO TO LOGISTIC REGRESSION
+LOGISTIC VS LINEAR REGRESSION
+LAB: LOGISTIC REGRESSION
+**************************************************************************************
+SUPPORT VECTOR MACHINE
+LAB: SUPPORT VECTOR MACHINES
+**************************************************************************************
+GRADED REVIEW QUESTIONS

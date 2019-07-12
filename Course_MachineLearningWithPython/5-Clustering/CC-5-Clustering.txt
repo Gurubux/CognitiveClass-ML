@@ -1,0 +1,37 @@
+
+INTRO TO CLUSTERING
+
+K-MEANS CLUSTERING
+MORE ON K-MEANS 
+LAB: K-MEANS
+
+HIERARCHICAL CLUSTERING
+MORE ON HIERARCHICAL CLUSTERING
+LAB: HIERARCHICAL CLUSTERING
+
+DBSCAN CLUSTERING
+LAB: DBSCAN CLUSTERING
+
+GRADED REVIEW QUESTIONS
+
+
+
+**************************************************************************************
+INTRO TO CLUSTERING
+
+**************************************************************************************
+K-MEANS CLUSTERING
+MORE ON K-MEANS 
+LAB: K-MEANS
+
+**************************************************************************************
+HIERARCHICAL CLUSTERING
+MORE ON HIERARCHICAL CLUSTERING
+LAB: HIERARCHICAL CLUSTERING
+
+**************************************************************************************
+DBSCAN CLUSTERING
+LAB: DBSCAN CLUSTERING
+
+**************************************************************************************
+GRADED REVIEW QUESTIONS
