@@ -431,6 +431,8 @@ LogisticRegression(C=0.1, class_weight=None, dual=False, fit_intercept=True,
 10     {'C': 1, 'solver': 'newton-cg'}          0.75000
 14          {'C': 1, 'solver': 'saga'}          0.75000
 5    {'C': 0.1, 'solver': 'newton-cg'}          0.75000
+
+
 0.731 (+/-0.018) for {'C': 0.01, 'solver': 'newton-cg'}
 0.731 (+/-0.018) for {'C': 0.01, 'solver': 'lbfgs'}
 0.762 (+/-0.191) for {'C': 0.01, 'solver': 'liblinear'}
@@ -463,6 +465,253 @@ weighted avg       0.81      0.72      0.67        40
 
 **************************************************************************************
 SUPPORT VECTOR MACHINE
+Imagine that you’ve obtained a dataset containing characteristics of thousands of human cell samples extracted from patients who were believed to be at risk of developing cancer. Analysis of the original data showed that many of the characteristics differed significantly between benign and malignant samples. You can use the values of these cell characteristics in samples from other patients to give an early indication of whether a new sample might be benign or malignant. You can use support vector machine, or SVM, as a classifier, to train your model to understand patterns within the data, that might show benign or malignant cells. Once the model has been trained, it can be used to predict your new or unknown cell with rather high accuracy. 
+
+DEFINITION:
+	A Support Vector Machine is a supervised algorithm that can classify cases by finding a "separator". 
+	SVM works by first, 
+		- mapping data to a high-dimensional feature space so that data points can be categorized, even when the data are not otherwise linearly separable. 
+		- Then, a separator is estimated For the data. 
+
+	The data should be transformed in such a way that a separator could be drawn as a hyperplane. For example, consider the following figure, which shows the distribution of a small set of cells, only based on their Unit Size and Clump thickness. As you can see, the data points fall into two different categories. It represents a linearly, non-separable, dataset. The two categories can be separated with a curve, but not a line. That is, it represents a linearly, non-separable dataset, which is the case For most real-world datasets. 
+		"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/4-Classification/SVM_NonLinearSeperation.PNG"
+		We can transfer this data to a higher dimensional space … For example, mapping it to a 3-dimensional space. After the transformation, the boundary between the two categories can be defined by a hyperplane. As we are now in 3-dimensional space, the separator is shown as a plane. This plane can be used to classify new or unknown cases. Therefore, the SVM algorithm outputs an optimal hyperplane that categorizes new examples. 
+		"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/4-Classification/SVM_LinearSeperation_HigherDimension.PNG"
+
+CHALLENGING QUESTIONS: 
+		1. How do we transform data in such a way that a separator could be drawn as a hyperplane? and 
+		2. How can we find the best/optimized hyperplane separator after transformation? 
+
+		1. How do we transform data in such a way that a separator could be drawn as a hyperplane?
+			 For the sake of simplicity, imagine that our dataset is 1-dimensional data, this means, we have only one feature x. As you can see, it is not linearly separable. So, what we can do here? Well, we can transform it into a 2-dimensional space. For example, your can increase the dimension of data by mapping x into a new space using a function, with outputs x and x-squared. Now, the data is linearly separable, right? Notice that, as we are in a two dimensional space, the hyperplane is a line dividing a plane into two parts where each class lays on either side. Now we can use this line to classify new cases. 
+			 "https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/4-Classification/SVM_DataTransformation.PNG"
+			 Basically, mapping data into a higher dimensional space is called "KERNELLING". The mathematical function used For the transformation is known as the kernel function, and can be of different types, such as: Linear, Polynomial, Radial basis function (or RBF), and Sigmoid. Each of these functions has its own characteristics, its pros and cons, and its equation, but the good news is that you don’t need to know them, as most of them are already implemented in libraries of data science programming languages. Also, as there`s no easy way of knowing which function performs best with any given dataset, we usually choose different functions in turn and compare the results. 
+
+		2. How can we find the best/optimized hyperplane separator after transformation? 
+			Basically, SVMs are based on the idea of" finding a hyperplane that best divides a dataset into two classes", as shown here. As we’re in a 2-dimensional space, you can think of the hyperplane as a line that linearly separates the blue points from the red points. 
+			 - One reasonable choice as the best hyperplane is the one that represents the largest separation, or "MARGIN", between the two classes. So, the goal is to choose a hyperplane with as big a margin as possible. 
+			 	Examples closest to the hyperplane are support vectors. 
+			 	It is intuitive that only support vectors matter For achieving our goal; and thus, other training examples can be ignored. 
+			 	We try to find the hyperplane in such a way that it has the maximum distance to support vectors. Please note, that the hyperplane and boundary decision lines have their own equations. So, finding the optimized hyperplane can be formalized using an equation which involves quite a bit more math, so I’m not going to go through it here, in detail. That said, the hyperplane is learned from training data using an optimization procedure that maximizes the margin; and like many other problems, this optimization problem can also be solved by gradient descent, which is out of scope of this video. Therefore, the output of the algorithm is the values ‘w’ and ‘b’ For the line. You can make classifications using this estimated line. It is enough to plug in input values into the line equation, then, you can calculate whether an unknown point is above or below the line. If the equation returns a value greater than 0, then the point belongs to the first class, which is above the line, and vice versa. 
+
+ADVANTAGES :
+	- they’re accurate in high dimensional spaces; and, 
+	- they use a subset of training points in the decision function (called support vectors), so it’s also memory efficient. 
+DISADVANTAGES : 
+	- The disadvantages of support vector machines include the fact that the algorithm is prone For over-fitting, if the number of features is much greater than the number of samples. (Fat-Short)
+	- Also, SVMs do not directly provide probability estimates, which are desirable in most classification problems. 
+	- And finally, SVMs are not very efficient computationally, if your dataset is very big, such as when you have more than one thousand rows.
+
+
+"IN WHICH SITUATION SHOULD I USE SVM?"	 
+	- SVM is good For image analysis tasks, such as image classification and handwritten digit recognition. 
+	- Also SVM is very effective in text-mining tasks, particularly due to its effectiveness in dealing with high-dimensional data. For example, it is used For detecting spam, text category assignment, and sentiment analysis. 
+	- Another application of SVM is in Gene Expression data classification, again, because of its power in high dimensional data classification. 
+	- SVM can also be used For other types of machine learning problems, such as regression, outlier detection, and clustering. 
+
+
+
 LAB: SUPPORT VECTOR MACHINES
+SVM works by mapping data to a high-dimensional feature space so that data points can be categorized, even when the data are not otherwise linearly separable. A separator between the categories is found, then the data are transformed in such a way that the separator could be drawn as a hyperplane. Following this, characteristics of new data can be used to predict the group to which a new record should belong.
+
+cell_df = pd.read_csv("cell_samples.csv")
+>>>
+	ID			Clump	UnifSize	UnifShape	MargAdh	SingEpiSize	BareNuc	BlandChrom	NormNucl	Mit		Class
+0	1000025		5		1			1			1		2			1		3			1			1		2
+1	1002945		5		4			4			5		7			10		3			2			1		2
+2	1015425		3		1			1			1		2			2		3			1			1		2
+3	1016277		6		8			8			1		3			4		3			7			1		2
+4	1017023		4		1			1			3		2			1		3			1			1		2
+
+
+cell_df.dtypes
+>>>
+ID              int64
+Clump           int64
+UnifSize        int64
+UnifShape       int64
+MargAdh         int64
+SingEpiSize     int64
+BareNuc        object
+BlandChrom      int64
+NormNucl        int64
+Mit             int64
+Class           int64
+dtype: object
+
+\It looks like the BareNuc column includes some values that are not numerical. We can drop those rows:
+
+cell_df = cell_df[pd.to_numeric(cell_df['BareNuc'], errors='coerce').notnull()]
+cell_df['BareNuc'] = cell_df['BareNuc'].astype('int')
+cell_df.dtypes
+>>>
+ID             int64
+Clump          int64
+UnifSize       int64
+UnifShape      int64
+MargAdh        int64
+SingEpiSize    int64
+BareNuc        int64
+BlandChrom     int64
+NormNucl       int64
+Mit            int64
+Class          int64
+dtype: object
+
+feature_df = cell_df[['Clump', 'UnifSize', 'UnifShape', 'MargAdh', 'SingEpiSize', 'BareNuc', 'BlandChrom', 'NormNucl', 'Mit']]
+X = np.asarray(feature_df)
+>>>
+array([[ 5,  1,  1,  1,  2,  1,  3,  1,  1],
+       [ 5,  4,  4,  5,  7, 10,  3,  2,  1],
+       [ 3,  1,  1,  1,  2,  2,  3,  1,  1],
+       [ 6,  8,  8,  1,  3,  4,  3,  7,  1],
+       [ 4,  1,  1,  3,  2,  1,  3,  1,  1]])
+
+cell_df['Class'] = cell_df['Class'].astype('int')
+y = np.asarray(cell_df['Class'])
+>>>
+array([2, 2, 2, 2, 2])
+
+1.Linear
+2.Polynomial
+3.Radial basis function (RBF)
+4.Sigmoid
+
+
+from sklearn import svm
+clf = svm.SVC(kernel='rbf')
+clf.fit(X_train, y_train) 
+>>>
+SVC(C=1.0, cache_size=200, class_weight=None, coef0=0.0,
+  decision_function_shape='ovr', degree=3, gamma='auto_deprecated',
+  kernel='rbf', max_iter=-1, probability=False, random_state=None,
+  shrinking=True, tol=0.001, verbose=False)
+
+yhat = clf.predict(X_test)
+>>>
+array([2, 4, 2, 4, 2])
+
+def plot_confusion_matrix_3(cm, classes,
+                          normalize=False,
+                          title='Confusion matrix',
+                          cmap=plt.cm.Blues):
+    """
+    This function prints and plots the confusion matrix.
+    Normalization can be applied by setting `normalize=True`.
+    """
+    if normalize:
+        cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
+        print("Normalized confusion matrix")
+    else:
+        print('Confusion matrix, without normalization')
+
+    print(cm)
+
+    plt.imshow(cm, interpolation='nearest', cmap=cmap)
+    plt.title(title)
+    plt.colorbar()
+    tick_marks = np.arange(len(classes))
+    plt.xticks(tick_marks, classes, rotation=45)
+    plt.yticks(tick_marks, classes)
+
+    fmt = '.2f' if normalize else 'd'
+    thresh = cm.max() / 2.
+    for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
+        plt.text(j, i, format(cm[i, j], fmt),
+                 horizontalalignment="center",
+                 color="white" if cm[i, j] > thresh else "black")
+
+    plt.tight_layout()
+    plt.ylabel('True label')
+    plt.xlabel('Predicted label')
+
+# Compute confusion matrix
+cnf_matrix = confusion_matrix(y_test, yhat, labels=[2,4])
+# Plot non-normalized confusion matrix
+plt.figure()
+plot_confusion_matrix_3(cnf_matrix, classes=['Benign(2)','Malignant(4)'],normalize= False,  title='Confusion matrix')
+>>>
+Confusion matrix, without normalization
+[[85  5]
+ [ 0 47]]
+
+
+
+np.set_printoptions(precision=2)
+print (classification_report(y_test, yhat))
+>>>
+              precision    recall  f1-score   support
+
+           2       1.00      0.94      0.97        90
+           4       0.90      1.00      0.95        47
+
+   micro avg       0.96      0.96      0.96       137
+   macro avg       0.95      0.97      0.96       137
+weighted avg       0.97      0.96     "0.96"      137
+
+
+
+from sklearn.metrics import f1_score
+f1_score(y_test, yhat, average='weighted') 
+>>>
+0.9639038982104676
+
+
+from sklearn.metrics import jaccard_similarity_score
+jaccard_similarity_score(y_test, yhat)
+>>>
+0.9635036496350365
+
+
+
+
+# write your code here
+def print_results(results):
+    print('BEST PARAMS: {}\n'.format(results.best_params_))
+    print(results.best_estimator_)
+    df = pd.DataFrame(results.cv_results_).sort_values('mean_test_score', ascending=False)[0:5]
+    print(df[['params','mean_test_score']].head())
+    means = results.cv_results_['mean_test_score']
+    stds = results.cv_results_['std_test_score']
+    for mean, std, params in zip(means, stds, results.cv_results_['params']):
+        print('{} (+/-{}) for {}'.format(round(mean, 3), round(std * 2, 3), params))
+
+# write your code here
+parameters = {'kernel':['linear', 'poly', 'rbf', 'sigmoid' ]}
+from sklearn.model_selection import GridSearchCV
+svm_1 = svm.SVC()
+cv = GridSearchCV(svm_1,parameters, cv = 5)
+cv.fit(X_train, y_train)
+print_results(cv)
+>>>
+BEST PARAMS: {'kernel': 'linear'}
+
+SVC(C=1.0, cache_size=200, class_weight=None, coef0=0.0,
+  decision_function_shape='ovr', degree=3, gamma='auto_deprecated',
+  kernel='linear', max_iter=-1, probability=False, random_state=None,
+  shrinking=True, tol=0.001, verbose=False)
+                  params  mean_test_score
+0   {'kernel': 'linear'}         0.970696
+2      {'kernel': 'rbf'}         0.957875
+1     {'kernel': 'poly'}         0.937729
+3  {'kernel': 'sigmoid'}         0.349817
+0.971 (+/-0.047) for {'kernel': 'linear'}
+0.938 (+/-0.022) for {'kernel': 'poly'}
+0.958 (+/-0.05) for {'kernel': 'rbf'}
+0.35 (+/-0.055) for {'kernel': 'sigmoid'}
+
+
+
+
+print (classification_report(y_test, cv.best_estimator_.predict(X_test)))
+>>>
+              precision    recall  f1-score   support
+
+           2       1.00      0.94      0.97        90
+           4       0.90      1.00      0.95        47
+
+   micro avg       0.96      0.96      0.96       137
+   macro avg       0.95      0.97      0.96       137
+weighted avg       0.97      0.96      0.96       137
 **************************************************************************************
 GRADED REVIEW QUESTIONS
