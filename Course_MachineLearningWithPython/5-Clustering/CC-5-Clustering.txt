@@ -30,21 +30,51 @@ INTRO TO CLUSTERING
 
 "CLUSTERING" 	: 
 	One of the most adopted approaches that can be used For customer segmentation is clustering. Clustering can group data only “unsupervised,” based on the similarity of customers to each other. It will "partition your customers into mutually exclusive groups", For example, into 3 clusters.	
-	The customers in each cluster are similar to each other demographically. Now we can create a profile for each group, considering the common characteristics of each cluster. 
+	The customers in each cluster are similar to each other demographically. Now we can create a profile For each group, considering the common characteristics of each cluster. 
 	Example : 
 		1. the first group is made up of AFFULUENT AND MIDDLE AGED customers. 
 		2. The second is made up of YOUNG EDUCATED AND MIDDLE INCOME customers. 
 		3. And the third group includes YOUNG AND LOW INCOME customers. 
 		Finally, we can assign each individual in our dataset to one of these groups or segments of customers. 
 		
-		Now imagine that you cross-join this segmented dataset, with the dataset of the product or services that customers purchase from your company. This information would really help to understand and predict the differences in individual customers’ preferences and their buying behaviors across various products. Indeed, having this information would allow your company to develop highly personalized experiences for each segment.
+		Now imagine that you cross-join this segmented dataset, with the dataset of the product or services that customers purchase from your company. This information would really help to understand and predict the differences in individual customers’ preferences and their buying behaviors across various products. Indeed, having this information would allow your company to develop highly personalized experiences For each segment.
 		"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/5-Clustering/Clustering_Segmentation.PNG"
 
 "DEFINITION"	:
 	Clustering means finding clusters in a dataset, unsupervised. 
 	So, what is a cluster? 
 		A cluster is group of data points or objects in a dataset that are similar to other objects in the group, and dissimilar to data points in other clusters. 
+		"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/5-Clustering/Clustering_cluster.PNG"
 
+"DIFFERNECE BETWEEN CLUSTERING AND CLASSIFICATION"	:
+	CLASSIFICATION
+		Classification algorithms predict categorical class labels. This means, assigning instances to pre-defined classes such as “Defaulted” or “Non-Defaulted.” For example, if an analyst wants to analyze customer data in order to know which customers might default on their payments, she uses a labeled dataset as training data, and uses classification approaches such as a decision tree, Support Vector Machines (or SVM), or, logistic regression to predict the default value For a new, or unknown customer. Generally speaking, "classification is a supervised learning where each training data instance belongs to a particular class."
+	CLUSTERING
+		In clustering, however, the data is unlabelled and the process is unsupervised. For example, we can use a clustering algorithm such as k-Means, to group similar customers as mentioned, and assign them to a cluster, based on whether they share similar attributes, such as age, education, and so on. 
+	"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/5-Clustering/Clustering_Classification.PNG"
+
+"APPLICATIONS" 	:
+		Retail/Marketing, Banking , Insurance
+			"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/5-Clustering/Clustering_application_1.PNG"
+		Publication, Medication, Biology
+			"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/5-Clustering/Clustering_application_2.PNG"
+
+
+"USES" 	:
+	- Exploratory data analysis, 
+	- summary generation or reducing the scale, 
+	- outlier detection, especially to be used for fraud detection, or noise removal, 
+	- finding duplicates in datasets, or, 
+	- pre-processing step for either prediction, other data mining tasks, or, as part of a complex system.
+
+"CLUSTERING ALGORITHMS"
+1. Partitioned based Clustering
+
+
+2. Heirarchical Clustering
+
+
+3. Density based Clustering
 
 **************************************************************************************
 K-MEANS CLUSTERING
