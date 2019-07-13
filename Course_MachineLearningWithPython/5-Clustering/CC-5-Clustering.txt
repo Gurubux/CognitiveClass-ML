@@ -114,7 +114,7 @@ WORKING		:
 
 3. Assign each point to the closest centroid. (Assign each customer to the closest center). - distance-matrix
 	@The main objective of k_Means clustering Is to minimize the distance of data points From the centroid of its cluster And maximize the distance From other cluster centroids
-	Find the closest centroid to each data point. We can use the distance-matrix to find the nearest centroid to data points. Finding the closest centroids for each data point, we assign each data point to that cluster. In other words, all the customers will fall to a cluster, based on their distance from centroids. 
+	Find the closest centroid to each data point. We can use the distance-matrix to find the nearest centroid to data points. Finding the closest centroids For each data point, we assign each data point to that cluster. In other words, all the customers will fall to a cluster, based on their distance from centroids. 
 	"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/5-Clustering/Kmeans_distance_matrix.PNG"
 	error is the total distance of each point from its centroid. It can be shown as within-cluster sum of squares error. 	
 		SSE = Sum of squared distances between each point and its centroid.
@@ -122,10 +122,39 @@ WORKING		:
 		SSE =  Σ ( xᵢ - Cᵢ )²
 		 Intuitively, we try to reduce this error. It means we should shape clusters in such a way that the total distance of all members of a cluster from its centroid be minimized.
  "How we can turn it into better clusters, with less error?"
-4. Compute the new centroid for each cluster
+4. Compute the new centroid For each cluster
+	We move centroids. Each cluster center will be updated to be the" mean For data points" in its cluster. Indeed, each centroid moves according to their cluster members. In other words, the centroid of each of the 3 clusters becomes the new mean. 
+	For example, if Point A coordination is 7.4 and 3.6, and Point B features are 7.8 and 3.8, the new centroid of this cluster with 2 points, would be the average of them, which is 7.6 and 3.7.
+
+5. Repeat 2-4 untill there are no more changes
+	Now we have new centroids. As you can guess, once again, we will have to calculate the distance of all points from the new centroids. The points are re-clustered and the centroids move again. This continues until the centroids no longer move. Please note that whenever a centroid moves, each point’s distance to the centroid needs to be measured again. Yes, k-Means is an iterative algorithm, and we have to repeat steps 2 to 4 until the algorithm converges. In each iteration, it will move the centroids, calculate the distances from new centroids, and assign the data points to the nearest centroid. It results in the clusters with minimum error, or the most dense clusters. However, as it is a heuristic algorithm, there is no guarantee that it will converge to the Global optimum, and the result may depend on the initial clusters. It means this algorithm is guaranteed to converge to a result, but the result may be a local optimum (i.e. not necessarily the best possible outcome). 
+
 
 
 MORE ON K-MEANS 
+Algorithm
+	"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/5-Clustering/Kmeans_Algo.PNG"
+
+
+ACCURACY 	:
+	 "How can we evaluate the 'goodness' of the clusters formed by k-Means?" In other words, 
+	 "How do we calculate the accuracy of k-Means clustering?"
+
+	 1. External approach 	
+	 	Compare the clusters with groud truth, if available- (Mostly un-available since un-supervised data or un-labeled data)
+	 
+	 2. Internal approach
+	 	This value is the average distance between data points within a cluster. Also, average of the distances of data points from their cluster centroids can be used as a metric of error For the clustering algorithm.
+
+
+
+
+
+
+
+
+
+
 LAB: K-MEANS
 
 **************************************************************************************
