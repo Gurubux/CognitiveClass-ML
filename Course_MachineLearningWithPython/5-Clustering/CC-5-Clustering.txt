@@ -16,8 +16,35 @@ GRADED REVIEW QUESTIONS
 
 
 
+K-Means Clustering plus Advantages & Disadvantages 
+Hierarchical Clustering plus Advantages & Disadvantages 
+Measuring the Distances Between Clusters - Single Linkage Clustering 
+Measuring the Distances Between Clusters - Algorithms For Hierarchy Clustering 
+Density-Based Clustering
+
 **************************************************************************************
 INTRO TO CLUSTERING
+"CUSTOMER SEGMENTATION" : 
+	Imagine that you have a customer dataset, and you need to apply customer segmentation on this historical data. Customer segmentation is the practice of partitioning a customer base into groups of individuals that have similar characteristics.  It allows a business to target specific groups of customers so as to more effectively allocate marketing resources. Example : For example, one group might contain customers who are high-profit and low-risk, that is, more likely to purchase products, or subscribe For a service. Knowing this information allows a business to devote more time and attention to retaining these customers. Another group might include customers from non-profit organizations, and so on.
+	A general segmentation process is not usually feasible For large volumes of varied data. Therefore, you need an analytical approach to "deriving segments and groups from large data sets."
+
+"CLUSTERING" 	: 
+	One of the most adopted approaches that can be used For customer segmentation is clustering. Clustering can group data only “unsupervised,” based on the similarity of customers to each other. It will "partition your customers into mutually exclusive groups", For example, into 3 clusters.	
+	The customers in each cluster are similar to each other demographically. Now we can create a profile for each group, considering the common characteristics of each cluster. 
+	Example : 
+		1. the first group is made up of AFFULUENT AND MIDDLE AGED customers. 
+		2. The second is made up of YOUNG EDUCATED AND MIDDLE INCOME customers. 
+		3. And the third group includes YOUNG AND LOW INCOME customers. 
+		Finally, we can assign each individual in our dataset to one of these groups or segments of customers. 
+		
+		Now imagine that you cross-join this segmented dataset, with the dataset of the product or services that customers purchase from your company. This information would really help to understand and predict the differences in individual customers’ preferences and their buying behaviors across various products. Indeed, having this information would allow your company to develop highly personalized experiences for each segment.
+		"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/5-Clustering/Clustering_Segmentation.PNG"
+
+"DEFINITION"	:
+	Clustering means finding clusters in a dataset, unsupervised. 
+	So, what is a cluster? 
+		A cluster is group of data points or objects in a dataset that are similar to other objects in the group, and dissimilar to data points in other clusters. 
+
 
 **************************************************************************************
 K-MEANS CLUSTERING
