@@ -63,9 +63,9 @@ INTRO TO CLUSTERING
 "USES" 	:
 	- Exploratory data analysis, 
 	- summary generation or reducing the scale, 
-	- outlier detection, especially to be used for fraud detection, or noise removal, 
+	- outlier detection, especially to be used For fraud detection, or noise removal, 
 	- finding duplicates in datasets, or, 
-	- pre-processing step for either prediction, other data mining tasks, or, as part of a complex system.
+	- pre-processing step For either prediction, other data mining tasks, or, as part of a complex system.
 
 "CLUSTERING ALGORITHMS"
 1. Partitioned based Clustering - (produces sphere-like clusters - Medium and large sized data-sets)
@@ -88,6 +88,43 @@ INTRO TO CLUSTERING
 
 **************************************************************************************
 K-MEANS CLUSTERING
+	- k-Means can group data only “unsupervised,” based on the similarity of customers to each other.
+	- There are various types of clustering algorithms, such as partitioning, hierarchical, or density-based clustering. k-Means is a type of partitioning clustering, that is, it divides the data into k non-overlapping subsets (or clusters) without any cluster-internal structure, or labels. This means, it’s an unsupervised algorithm.
+	- Objects within a cluster are very similar and objects across different clusters are very different or dissimilar. As you can see, For using k-Means, we have to find similar samples (for example, similar customers).
+
+"“How can we find the similarity of samples in clustering?”"
+	Though the objective of k-Means is to form clusters in such a way that similar samples go into a cluster, and dissimilar samples fall into different clusters, it can be shown that instead of a similarity metric, we can use dissimilarity metrics. In other words, conventionally, the distance of samples from each other is used to shape the clusters. So, we can say, 
+		"K-MEANS TRIES TO MINIMIZE THE “INTRA-CLUSTER” DISTANCES AND MAXIMIZE THE “INTER-CLUSTER” DISTANCES."
+		"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/5-Clustering/Kmeans_inter_intra_cluster.PNG"
+
+"“How do we measure how similar two customers are with regard to their demographics?”"
+"“How we can calculate the dissimilarity or distance of two cases, such as two customers?”"
+	Assume that we have two customers, we’ll call them customer 1 and 2. Let’s also assume that we have only one feature For each of these two customers, and that feature is Age. We can easily use a specific type of Minkowski distance to calculate the distance of these two customers. Indeed, it is the Euclidian distance. Distance of x1 from x2 is root of 34 minus 30 power 2, which is 4. What about if we have more than one feature, For example Age and Income? For example, if we have income and age For each customer, we can still use the same formula, but this time in a 2-dimensional space. Also, we can use the same distance matrix For multi-dimensional vectors. Of course, we have to normalize our feature set to get the accurate dissimilarity measure. There are other dissimilarity measures as well that can be used For this purpose, but it is highly dependent on data type and also the domain that clustering is done For it. For example, you may use Euclidean distance, cosine similarity, average distance, and so on. Indeed, the similarity measure highly controls how the clusters are formed, so it is recommended to understand the domain knowledge of your dataset, and data type of features, and then choose the meaningful distance measurement. 
+
+WORKING		:
+
+1. Initialize k
+	The key concept of the k-Means algorithm is that it randomly picks a center point For each cluster. It means, we must initialize k,which represents "number of clusters" There are two approaches to choose these centroids:
+			a.  We can randomly choose 3 observations out of the dataset and use these observations as the initial means. 
+			b.  We can create 3 random points as centroids of the clusters
+
+2. Distance Calculation
+	For this purpose, we have to calculate the distance of each data point (or in our case, each customer) from the centroid points.
+	Therefore, you will form a matrix where each row represents the distance of a customer from each centroid. It is called the "distance-matrix."
+
+3. Assign each point to the closest centroid. (Assign each customer to the closest center). - distance-matrix
+	@The main objective of k_Means clustering Is to minimize the distance of data points From the centroid of its cluster And maximize the distance From other cluster centroids
+	Find the closest centroid to each data point. We can use the distance-matrix to find the nearest centroid to data points. Finding the closest centroids for each data point, we assign each data point to that cluster. In other words, all the customers will fall to a cluster, based on their distance from centroids. 
+	"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/5-Clustering/Kmeans_distance_matrix.PNG"
+	error is the total distance of each point from its centroid. It can be shown as within-cluster sum of squares error. 	
+		SSE = Sum of squared distances between each point and its centroid.
+
+		SSE =  Σ ( xᵢ - Cᵢ )²
+		 Intuitively, we try to reduce this error. It means we should shape clusters in such a way that the total distance of all members of a cluster from its centroid be minimized.
+ "How we can turn it into better clusters, with less error?"
+4. Compute the new centroid for each cluster
+
+
 MORE ON K-MEANS 
 LAB: K-MEANS
 
