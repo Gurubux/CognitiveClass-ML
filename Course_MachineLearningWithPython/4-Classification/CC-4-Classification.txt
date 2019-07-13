@@ -347,6 +347,47 @@ plt.imshow(img,interpolation='nearest')
 
 **************************************************************************************
 INTRO TO LOGISTIC REGRESSION
+1. What is  logistic regression?
+2. What kind of problems solved?
+3. Which situations we should use Logistic regression?
+
+1. What is  logistic regression?
+	Logistic regression is a statistical and machine learning technique for classifying records of a dataset, based on the values of the input fields.
+	Let’s say we have a telecommunication dataset that we’d would like to analyze, in order	 to understand which customers might leave us next month.	 This is historical customer data where each row represents one customer.
+	You’ll use the dataset to build a model based on historical records and use it to predict the future churn within the customer group.
+	INDEPENDENT VARIABLE : 
+		In logistic regression, independent variables should be continuous; if categorical, they should be dummy or indicator-coded. This means we have to transform them to some continuous value.
+	DEPENDENT VARIABLE : 
+		logistic regression can be used for both binary classification and multiclass classification
+
+2. What kind of problems solved?
+	a. To predict the "probability" of a person having a heart attack within a specified time period, based on our knowledge of the person's age, sex, and body mass index.
+	b. To predict the chance of mortality in an injured patient, or to "predict" whether a patient has a given disease, such as diabetes, based on observed characteristics of that patient, such as weight, height, blood pressure, and results of various blood tests, and so on.
+	c. In a marketing context, we can use it to predict the "likelihood" of a customer purchasing a product or halting a subscription, as we’ve done in our churn example.
+	d. To predict the "probability" of failure of a given process, system, or product.
+	e. To predict the "likelihood" of a homeowner defaulting on a mortgage.
+
+	\Notice that in all of these examples, not only do we predict the class of each case, we also measure the probability of a case belonging to a specific class.
+
+3. Which situations we should use Logistic regression?
+	Four situations in which Logistic regression is a good candidate:
+		a. When the "target field in your data is categorical", or specifically, is binary, such as 0/1, yes/no, churn or no churn, positive/negative, and so on.
+		
+		b. When you "need the probability" of your prediction, for example, if you want to know what the probability is, of a customer buying a product. Logistic regression returns a probability score between 0 and 1 for a given sample of data. In fact, logistic regressing predicts the probability of that sample, and we map the cases to a discrete class based on that probability.
+		
+		c. If your data is "linearly separable".
+				The decision boundary of logistic regression is a line or a plane or a hyper-plane. A classifier will classify all the points on one side of the decision boundary as belonging to one class and all those on the other side as belonging to the other class. For example, if we have just two features (and are not applying any polynomial processing), we can obtain an inequality like θ_0+ θ_1 x_1+ θ_2 x_2 > 0, which is a half-plane, easily plottable.
+				Please note that in using logistic regression, we can also achieve a complex decision boundary using polynomial processing as well, which is out of scope here.
+
+		d. When you need to "understand the IMPACT" of a feature.
+				You can select the best features based on the statistical significance of the logistic regression model coefficients or parameters.
+				That is, after finding the optimum parameters, a feature x with the weight θ_1 close to 0, has a smaller effect on the prediction, than features with large absolute values of θ_1. Indeed, it allows us to understand the impact an independent variable has on the dependent variable while controlling other independent variables.
+
+					ŷ    = 		P(y = 1|X)
+				P(y=0|X) = 1 -  P(y = 1|X)
+
+
+
 LOGISTIC VS LINEAR REGRESSION
 LAB: LOGISTIC REGRESSION
 **************************************************************************************
