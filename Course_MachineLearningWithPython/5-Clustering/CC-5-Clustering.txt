@@ -455,9 +455,9 @@ They are: Toronto, Ottawa, Vancouver, Montreal, Winnipeg, and Edmonton. We const
 
 
 MORE ON HIERARCHICAL CLUSTERING
-Agglomerative algorithm for Hierarchical Clustering. Remember that Agglomerative clustering is a bottom-up approach.
+Agglomerative algorithm For Hierarchical Clustering. Remember that Agglomerative clustering is a bottom-up approach.
 Let’s say our dataset has n data points. 
-	1. "Create n clusters, one for each data point". Then each point is assigned as a cluster.
+	1. "Create n clusters, one For each data point". Then each point is assigned as a cluster.
 	2. "Compute the distance/proximity matrix", which will be an n by n table.
 	3. REPEAT : (until the specified cluster number is reached, or until there is only one cluster left.)
 			i.  "MERGE the two nearest clusters". (Distances are computed already in the proximity matrix.)
@@ -593,7 +593,7 @@ plt.figure(figsize=(6,4))
 # Create a minimum and maximum range of X1.
 x_min, x_max = np.min(X1, axis=0), np.max(X1, axis=0)
 
-# Get the average distance for X1.
+# Get the average distance For X1.
 X1 = (X1 - x_min) / (x_max - x_min)
 
 # This loop displays all of the datapoints.
@@ -617,7 +617,7 @@ plt.scatter(X1[:, 0], X1[:, 1], marker='.')
 plt.show()
 
 
-\Dendrogram Associated for the Agglomerative Hierarchical Clustering
+\Dendrogram Associated For the Agglomerative Hierarchical Clustering
 Remember that a distance matrix contains the distance from each point to every other point of a dataset . 
 Use the function distance_matrix, which requires two inputs. Use the Feature Matrix, X2 as both inputs and save the distance matrix to a variable called dist_matrix 
 
@@ -755,7 +755,7 @@ import scipy
 leng = feature_mtx.shape[0]
 D = scipy.zeros([leng,leng])
 for i in range(leng):
-    for j in range(leng):
+    For j in range(leng):
         D[i,j] = scipy.spatial.distance.euclidean(feature_mtx[i], feature_mtx[j])
 
 
@@ -814,7 +814,7 @@ print(dist_matrix)
  [0.18879995 0.62201282 0.77930119 ... 0.35720492 0.15212198 0.        ]]
 
 
-Now, we can use the 'AgglomerativeClustering' function from scikit-learn library to cluster the dataset. The AgglomerativeClustering performs a hierarchical clustering using a bottom up approach. The linkage criteria determines the metric used for the merge strategy:
+Now, we can use the 'AgglomerativeClustering' function from scikit-learn library to cluster the dataset. The AgglomerativeClustering performs a hierarchical clustering using a bottom up approach. The linkage criteria determines the metric used For the merge strategy:
 
 - "Ward" minimizes the sum of squared differences within all clusters. It is a variance-minimizing approach and in this sense is similar to the k-means objective function but tackled with an agglomerative hierarchical approach.
 - Maximum or "complete" linkage minimizes the maximum distance between observations of pairs of clusters.
@@ -854,7 +854,7 @@ plt.figure(figsize=(16,14))
 
 for color, label in zip(colors, cluster_labels):
     subset = pdf[pdf.cluster_ == label]
-    for i in subset.index:
+    For i in subset.index:
             plt.text(subset.horsepow[i], subset.mpg[i],str(subset['model'][i]), rotation=25) 
     plt.scatter(subset.horsepow, subset.mpg, s= subset.price*10, c=color, label='cluster'+str(label),alpha=0.5)
 #    plt.scatter(subset.horsepow, subset.mpg)
@@ -900,7 +900,7 @@ Please notice that we did not use type , and price of cars in the clustering pro
 plt.figure(figsize=(16,10))
 for color, label in zip(colors, cluster_labels):
     subset = agg_cars.loc[(label,),]
-    for i in subset.index:
+    For i in subset.index:
         plt.text(subset.loc[i][0]+5, subset.loc[i][2], 'type='+str(int(i)) + ', price='+str(int(subset.loc[i][3]))+'k')
     plt.scatter(subset.horsepow, subset.mpg, s=subset.price*20, c=color, label='cluster'+str(label))
 plt.legend()
@@ -921,6 +921,20 @@ DBSCAN CLUSTERING
 	While partitioning-based algorithms, such as K-Means, may be easy to understand and implement in practice, the algorithm has no notion of outliers. That is, all points are assigned to a cluster, even if they do not belong in any. In the domain of anomaly detection, this causes problems as anomalous points will be assigned to the same cluster as "normal" data points. The anomalous points pull the cluster centroid towards them, making it harder to classify them as anomalous points. In contrast, Density-based clustering locates regions of high density that are separated from one another by regions of low density. Density, in this context, is defined as the number of points within a specified radius. A specific and very popular type of density-based clustering is \DBSCAN. 
 	"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/5-Clustering/DBSCAN_Vs_Kmeans.PNG"
 
+3. Class identification
+	DBSCAN is particularly effective For tasks like class identification on a spatial context. The wonderful attribute of the DBSCAN algorithm is that it can find out any arbitrary shape cluster without getting affected by noise.
+	For example, this map shows the location of weather stations in Canada.
+	"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/5-Clustering/DBSCAN_classIdentification.PNG"
+	DBSCAN can be used here to find the group of stations, which show the same weather conditions. As you can see, it not only finds different arbitrary shaped clusters, it can find the denser part of data-centered samples by ignoring less-dense areas or noises.
+	"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/5-Clustering/DBSCAN_classIdentification_1.PNG"
+
+
+\ALGORITHM WORKING
+==> "DBSCAN" - Density Based Spatial Clustering of Applications with Noise
+
+==> "R (Radius of neighbourhood)" - Density Based Spatial Clustering of Applications with Noise
+
+==> "M (Min number of Neighbours)" - Density Based Spatial Clustering of Applications with Noise
 
 LAB: DBSCAN CLUSTERING
 
