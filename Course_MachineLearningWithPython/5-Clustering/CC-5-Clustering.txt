@@ -914,6 +914,14 @@ plt.ylabel('mpg')
 **************************************************************************************
 DBSCAN CLUSTERING
 
+1. When applied to tasks with arbitrary shape clusters, or clusters within clusters, traditional techniques might not be able to achieve good results. That is, elements in the same cluster might not share enough similarity -- or the performance may be poor.
+	"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/5-Clustering/DBSCAN_arbitaryShape.PNG"
+
+2.  Outliers/Anomaly detection
+	While partitioning-based algorithms, such as K-Means, may be easy to understand and implement in practice, the algorithm has no notion of outliers. That is, all points are assigned to a cluster, even if they do not belong in any. In the domain of anomaly detection, this causes problems as anomalous points will be assigned to the same cluster as "normal" data points. The anomalous points pull the cluster centroid towards them, making it harder to classify them as anomalous points. In contrast, Density-based clustering locates regions of high density that are separated from one another by regions of low density. Density, in this context, is defined as the number of points within a specified radius. A specific and very popular type of density-based clustering is \DBSCAN. 
+	"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/5-Clustering/DBSCAN_Vs_Kmeans.PNG"
+
+
 LAB: DBSCAN CLUSTERING
 
 **************************************************************************************
