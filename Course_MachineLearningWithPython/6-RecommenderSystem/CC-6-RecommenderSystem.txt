@@ -8,14 +8,309 @@ LAB: COLLABORATIVE FILTERING
 
 GRADED REVIEW QUESTIONS
 
+
+
 RECOMMENDER SYSTEMS
+@TYPES OF RECOMMENDER SYSTEMS
+	Content-based
+	Collaborative 
+	Hybrid
+	"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/6-RecommenderSystem/RecommendorSystems_Types.PNG"
+
+
+@IMPLEMENTING RECOMMENDOR SYSTEMS :
+	In "memory-based" approaches, we use the entire user-item dataset to generate a recommendation system. It uses statistical techniques to approximate users or items. Examples of these techniques include: Pearson Correlation, Cosine Similarity and Euclidean Distance, among others. 
+	In "model-based" approaches, a model of users is developed in an attempt to learn their preferences. Models can be created using Machine Learning techniques like regression, clustering, classification, and so on.
+	"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/6-RecommenderSystem/RecommendorSystems_Implementation.PNG"
+
+
+
 
 **************************************************************************************
 CONTENT-BASED
+"https://www.youtube.com/watch?v=OvkXCCY8sNQ"
+
+
+Advantages and Disadvantages of Content-Based Filtering
+Advantages
+	Learns user`s preferences
+	Highly personalized for the user
+Disadvantages
+	Doesn`t take into account what others think of the item, so low quality item recommendations might happen
+	Extracting data is not always intuitive
+	Determining what characteristics of the item the user dislikes or likes is not always obvious
+
+
+
 LAB: CONTENT-BASED
+Acquiring the Data
+
+Preprocessing
+
+Content-Based Filtering
+
+@Acquiring the Data
+!wget -O moviedataset.zip https://s3-api.us-geo.objectstorage.softlayer.net/cf-courses-data/CognitiveClass/ML0101ENv3/labs/moviedataset.zip
+print('unziping ...')
+!unzip -o -j moviedataset.zip 
+
+
+
+@Preprocessing
+#Storing the movie information into a pandas dataframe
+movies_df = pd.read_csv('movies.csv')
+#Storing the user information into a pandas dataframe
+ratings_df = pd.read_csv('ratings.csv')
+#Head is a function that gets the first N rows of a dataframe. N's default is 5.
+movies_df.head()
+>>>
+	movieId	title								genres
+0	1		Toy Story (1995)					Adventure|Animation|Children|Comedy|Fantasy
+1	2		Jumanji (1995)						Adventure|Children|Fantasy
+2	3		Grumpier Old Men (1995)				Comedy|Romance
+3	4		Waiting to Exhale (1995)			Comedy|Drama|Romance
+4	5		Father of the Bride Part II (1995)	Comedy
+
+
+
+\Let`s also remove the year from the title column by using pandas` replace function and store in a new year column.
+
+#Using regular expressions to find a year stored between parentheses
+#We specify the parantheses so we don't conflict with movies that have years in their titles
+movies_df                                                         ['year'] = movies_df.title.str.extract('(\(\d\d\d\d\))',expand=False)
+#Removing the parentheses
+movies_df                                                         ['year'] = movies_df.year.str.extract('(\d\d\d\d)',expand=False)
+#Removing the years from the 'title' column
+movies_df                                                         ['title'] = movies_df.title.str.replace('(\(\d\d\d\d\))', '')
+#Applying the strip function to get rid of any ending whitespace characters that may have appeared
+movies_df                                                         ['title'] = movies_df                                                         ['title'].apply(lambda x: x.strip())
+movies_df.head()
+>>>
+	movieId	title						genres										year
+0	1		Toy Story					Adventure|Animation|Children|Comedy|Fantasy	1995
+1	2		Jumanji						Adventure|Children|Fantasy					1995
+2	3		Grumpier Old Men			Comedy|Romance								1995
+3	4		Waiting to Exhale			Comedy|Drama|Romance						1995
+4	5		Father of the Bride Part II	Comedy										1995
+
+
+\With that, let's also split the values in the Genres column into a list of Genres to simplify future use. This can be achieved by applying Python's split string function on the correct column.
+#Every genre is separated by a | so we simply have to call the split function on |
+movies_df                                                         ['genres'] = movies_df.genres.str.split('|')
+movies_df.head()
+>>>
+	movieId	title							genres												year
+0	1		Toy Story						                                                         [Adventure, Animation, Children, Comedy, Fantasy]	1995
+1	2		Jumanji							                                                         [Adventure, Children, Fantasy]						1995
+2	3		Grumpier Old Men				                                                         [Comedy, Romance]									1995
+3	4		Waiting to Exhale				                                                         [Comedy, Drama, Romance]							1995
+4	5		Father of the Bride Part II		                                                         [Comedy]											1995
+
+\One Hot Encoding technique to convert the list of genres to a vector where each column corresponds to one possible value of the feature.
+#Copying the movie dataframe into a new one since we won't need to use the genre information in our first case.
+moviesWithGenres_df = movies_df.copy()
+
+#For every row in the dataframe, iterate through the list of genres and place a 1 into the corresponding column
+for index, row in movies_df.iterrows():
+    for genre in row                                                         ['genres']:
+        moviesWithGenres_df.at                                                         [index, genre] = 1
+#Filling in the NaN values with 0 to show that a movie doesn't have that column's genre
+moviesWithGenres_df = moviesWithGenres_df.fillna(0)
+moviesWithGenres_df.head()
+
+	movieId	title	genres	year	Adventure	Animation	Children	Comedy	Fantasy	Romance	...	Horror	Mystery	Sci-Fi	IMAX	Documentary	War	Musical	Western	Film-Noir	(no genres listed)
+0	1	Toy Story	                                                         [Adventure, Animation, Children, Comedy, Fantasy]	1995	1.0	1.0	1.0	1.0	1.0	0.0	...	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+1	2	Jumanji	                                                         [Adventure, Children, Fantasy]	1995	1.0	0.0	1.0	0.0	1.0	0.0	...	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+2	3	Grumpier Old Men	                                                         [Comedy, Romance]	1995	0.0	0.0	0.0	1.0	0.0	1.0	...	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+3	4	Waiting to Exhale	                                                         [Comedy, Drama, Romance]	1995	0.0	0.0	0.0	1.0	0.0	1.0	...	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+4	5	Father of the Bride Part II	                                                         [Comedy]	1995	0.0	0.0	0.0	1.0	0.0	0.0	...	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+
+
+ratings_df.head()
+>>>
+	userId	movieId		rating
+0	1		169			2.5
+1	1		2471		3.0
+2	1		48516		5.0
+3	2		2571		3.5
+4	2		109487		4.0
+
+
+
+
+
+
+
+
+
+@Content Based Filtering
+This technique attempts to figure out what a user`s favourite aspects of an item is, and then recommends items that present those aspects. In our case, we`re going to try to figure out the input`s favorite genres from the movies and ratings given.
+
+Let`s begin by creating an input user to recommend movies to:
+Notice: To add more movies, simply increase the amount of elements in the userInput. Feel free to add more in! Just be sure to write it in with capital letters and if a movie starts with a "The", like "The Matrix" then write it in like this: 'Matrix, The' .
+
+userInput =                                                          [
+            {'title':'Breakfast Club, The', 'rating':5},
+            {'title':'Toy Story', 'rating':3.5},
+            {'title':'Jumanji', 'rating':2},
+            {'title':"Pulp Fiction", 'rating':5},
+            {'title':'Akira', 'rating':4.5}
+         ] 
+inputMovies = pd.DataFrame(userInput)
+inputMovies
+
+	rating	title
+0	5.0		Breakfast Club, The
+1	3.5		Toy Story
+2	2.0		Jumanji
+3	5.0		Pulp Fiction
+4	4.5		Akira
+
+
+
+\Add movieId to input user
+#Filtering out the movies by title
+inputId = movies_df                                                         [movies_df                                                         ['title'].isin(inputMovies                                                         ['title'].tolist())]
+#Then merging it so we can get the movieId. It's implicitly merging it by title.
+inputMovies = pd.merge(inputId, inputMovies)
+#Dropping information we won't use from the input dataframe
+inputMovies = inputMovies.drop('genres', 1).drop('year', 1)
+#Final input dataframe
+#If a movie you added in above isn't here, then it might not be in the original 
+#dataframe or it might spelled differently, please check capitalisation.
+inputMovies
+	movieId	title				rating
+0	1		Toy Story			3.5
+1	2		Jumanji				2.0
+2	296		Pulp Fiction		5.0
+3	1274	Akira				4.5
+4	1968	Breakfast Club, The	5.0
+
+
+#Filtering out the movies from the input
+userMovies = moviesWithGenres_df                                                         [moviesWithGenres_df                                                         ['movieId'].isin(inputMovies                                                         ['movieId'].tolist())]
+userMovies
+
+#Resetting the index to avoid future issues
+userMovies = userMovies.reset_index(drop=True)
+#Dropping unnecessary issues due to save memory and to avoid issues
+userGenreTable = userMovies.drop('movieId', 1).drop('title', 1).drop('genres', 1).drop('year', 1)
+userGenreTable
+
+
+inputMovies                                                         ['rating']
+0    3.5
+1    2.0
+2    5.0
+3    4.5
+4    5.0
+
+
+
+#Dot produt to get weights
+userProfile = userGenreTable.transpose().dot(inputMovies                                                         ['rating'])
+#The user profile
+userProfile
+Adventure             10.0
+Animation              8.0
+Children               5.5
+Comedy                13.5
+Fantasy                5.5
+Romance                0.0
+Drama                 10.0
+Action                 4.5
+Crime                  5.0
+Thriller               5.0
+Horror                 0.0
+Mystery                0.0
+Sci-Fi                 4.5
+IMAX                   0.0
+Documentary            0.0
+War                    0.0
+Musical                0.0
+Western                0.0
+Film-Noir              0.0
+(no genres listed)     0.0
+
+
+
+#Now let's get the genres of every movie in our original dataframe
+genreTable = moviesWithGenres_df.set_index(moviesWithGenres_df                                                         ['movieId'])
+#And drop the unnecessary information
+genreTable = genreTable.drop('movieId', 1).drop('title', 1).drop('genres', 1).drop('year', 1)
+genreTable.head()
+
+
+
+
+
+#Multiply the genres by the weights and then take the weighted average
+recommendationTable_df = ((genreTable*userProfile).sum(axis=1))/(userProfile.sum())
+recommendationTable_df.head()
+movieId
+1    0.594406
+2    0.293706
+3    0.188811
+4    0.328671
+5    0.188811
+dtype: float64
+
+#Sort our recommendations in descending order
+recommendationTable_df = recommendationTable_df.sort_values(ascending=False)
+#Just a peek at the values
+recommendationTable_df.head()
+movieId
+5018      0.748252
+26093     0.734266
+27344     0.720280
+148775    0.685315
+6902      0.678322
+dtype: float64
+
+
+#The final recommendation table
+movies_df.loc                                                         [movies_df                                                         ['movieId'].isin(recommendationTable_df.head(20).keys())]
+
+
+	movieId		title													genres												year
+664		673		Space Jam	                                            [Adventure, Animation, Children, Comedy, Fanta...	1996
+1824	1907	Mulan	                                                [Adventure, Animation, Children, Comedy, Drama...	1998
+2902	2987	Who Framed Roger Rabbit?	                            [Adventure, Animation, Children, Comedy, Crime...	1988
+4923	5018	Motorama	                                            [Adventure, Comedy, Crime, Drama, Fantasy, Mys...	1991
+6793	6902	Interstate 60	                                        [Adventure, Comedy, Drama, Fantasy, Mystery, S...	2002
+8605	26093	Wonderful World of the Brothers Grimm, The	            [Adventure, Animation, Children, Comedy, Drama...	1962
+8783	26340	Twelve Tasks of Asterix, The (Les douze travau...	    [Action, Adventure, Animation, Children, Comed...	1976
+9296	27344	Revolutionary Girl Utena: Adolescence of Utena...	    [Action, Adventure, Animation, Comedy, Drama, ...	1999
+9825	32031	Robots	                                                [Adventure, Animation, Children, Comedy, Fanta...	2005
+11716	51632	Atlantis: Milo`s Return	                                [Action, Adventure, Animation, Children, Comed...	2003
+11751	51939	TMNT (Teenage Mutant Ninja Turtles)	                    [Action, Adventure, Animation, Children, Comed...	2007
+13250	64645	The Wrecking Crew	                                    [Action, Adventure, Comedy, Crime, Drama, Thri...	1968
+16055	81132	Rubber	                                                [Action, Adventure, Comedy, Crime, Drama, Film...	2010
+18312	91335	Gruffalo, The	                                        [Adventure, Animation, Children, Comedy, Drama]		2009
+22778	108540	Ernest & Célestine (Ernest et Célestine)	            [Adventure, Animation, Children, Comedy, Drama...	2012
+22881	108932	The Lego Movie	                                        [Action, Adventure, Animation, Children, Comed...	2014
+25218	117646	Dragonheart 2: A New Beginning	                        [Action, Adventure, Comedy, Drama, Fantasy, Th...	2000
+26442	122787	The 39 Steps	                                        [Action, Adventure, Comedy, Crime, Drama, Thri...	1959
+32854	146305	Princes and Princesses	                                [Animation, Children, Comedy, Drama, Fantasy, ...	2000
+33509	148775	Wizards of Waverly Place: The Movie	                    [Adventure, Children, Comedy, Drama, Fantasy, ][...]	2009
 
 **************************************************************************************
 COLLABORATIVE FILTERING
+
+
+
+Advantages and Disadvantages of Collaborative Filtering
+"Advantages"
+	Takes other user`s ratings into consideration
+	Doesn`t need to study Or extract information From the recommended item
+	Adapts to the user`s interests which might change over time
+"Disadvantages"
+	Approximation function can be slow
+	There might be a low of amount of users to approximate
+	Privacy issues when trying to learn the user`s preferences
+
+
+
 LAB: COLLABORATIVE FILTERING
 
 **************************************************************************************
