@@ -189,7 +189,7 @@ We will be making random clusters of points by using the make_blobs class. The m
 	X: Array of shape [n_samples, n_features]. (Feature Matrix)
 		The generated samples.
 	y: Array of shape [n_samples]. (Response Vector)
-		The integer labels for cluster membership of each sample.
+		The integer labels For cluster membership of each sample.
 
 
 X, y = make_blobs(n_samples=5000, centers=[[4,4], [-2, -1], [2, -3], [1, 1]], cluster_std=0.9)
@@ -209,7 +209,7 @@ plt.scatter(X[:, 0], X[:, 1], marker='.')
 
 init: Initialization method of the centroids.
 	Value will be: "k-means++"
-	k-means++: Selects initial cluster centers for k-mean clustering in a smart way to speed up convergence.
+	k-means++: Selects initial cluster centers For k-mean clustering in a smart way to speed up convergence.
 n_clusters: The number of clusters to form as well as the number of centroids to generate.
 	Value will be: 4 (since we have 4 centers)
 n_init: Number of time the k-means algorithm will be run with different centroid seeds. The final results will be the best output of n_init consecutive runs in terms of inertia.
@@ -293,7 +293,7 @@ cust_df.head()
 4	5		 	47	1	31				253	   	9.308		8.908		0.0			NBA008	7.2
 
 @PRE_PROCESSING
-#As you can see, Address in this dataset is a categorical variable. k-means algorithm isn`t directly applicable to categorical variables because Euclidean distance function isn`t really meaningful for discrete variables. So, lets drop this feature and run clustering.
+#As you can see, Address in this dataset is a categorical variable. k-means algorithm isn`t directly applicable to categorical variables because Euclidean distance function isn`t really meaningful For discrete variables. So, lets drop this feature and run clustering.
 df = cust_df.drop('Address', axis=1)
 df.head()
 	Customer Id	Age	Edu	Years Employed	Income	Card Debt	Other Debt	Defaulted	DebtIncomeRatio
@@ -410,7 +410,7 @@ ax.set_zlabel('Income')
 
 ax.scatter(X[:, 1], X[:, 0], X[:, 3], c= labels.astype(np.float))
 
-k-means will partition your customers into mutually exclusive groups, for example, into 3 clusters. The customers in each cluster are similar to each other demographically. Now we can create a profile for each group, considering the common characteristics of each cluster. For example, the 3 clusters can be:
+k-means will partition your customers into mutually exclusive groups, For example, into 3 clusters. The customers in each cluster are similar to each other demographically. Now we can create a profile For each group, considering the common characteristics of each cluster. For example, the 3 clusters can be:
 
 AFFLUENT, EDUCATED AND OLD AGED
 MIDDLE AGED AND MIDDLE INCOME
@@ -418,6 +418,34 @@ YOUNG AND LOW INCOME
 
 **************************************************************************************
 HIERARCHICAL CLUSTERING
+	"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/5-Clustering/Heirarchical_clustering_dendogram_breed_full.jpg"
+	This diagram, shows hierarchical clustering of these animals based on the similarity in their genetic data.
+
+
+Hierarchical clustering algorithms build a hierarchy of clusters where each node is a cluster consisting of the clusters of its daughter nodes. 
+
+Strategies For hierarchical clustering generally fall into two types: 
+	1. Divisive
+		Divisive is top-down, so you start with all observations in a large cluster and break it down into smaller pieces. Think about divisive as "dividing" the cluster.
+	2. Agglomerative.
+		Agglomerative is the opposite of divisive, so it is bottom-up, where each observation starts in its own cluster and pairs of clusters are merged together as they move up the hierarchy. Agglomeration means to amass or collect things, which is exactly what this does with the cluster.
+
+
+Agglomerative clustering.
+This method builds the hierarchy from the individual elements by progressively merging clusters. 
+
+EXAMPLE : let’s say we want to cluster 6 cities in Canada based on their distances from one another.
+They are: Toronto, Ottawa, Vancouver, Montreal, Winnipeg, and Edmonton. We construct a distance matrix at this stage, where the numbers in the row i column j is the distance between the i and j cities. In fact, this table shows the distances between each pair of cities. The algorithm is started by assigning each city to its own cluster. So, if we have 6 cities, we have 6 clusters, each containing just one city. Let’s note each city by showing the first two characters of its name. 
+	"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/5-Clustering/Heirarchical_clustering_AgglomerativeC_dendogram.PNG"
+	The first step is to determine which cities to merge into a cluster. 
+		Usually, we want to take the two closest clusters according to the chosen distance. Looking at the distance matrix, Montreal and Ottawa are the closest clusters. So, we make a cluster out of them. Please notice that we just use a simple 1-dimentional distance feature here, but our object can be multi-dimensional, and distance measurement can be either Euclidean, Pearson, average distance, or many others, depending on data type and domain knowledge. Anyhow, we have to merge these two closest cities in the distance matrix as well. So, rows and columns are merged as the cluster is constructed. As you can see in the distance matrix, rows and columns related to Montreal and Ottawa cities are merged as the cluster is constructed. Then, the distances from all cities to this new merged cluster get updated. But how? For example, how do we calculate the distance from Winnipeg to the Ottawa-Montreal cluster? Well, there are different approaches, but let’s assume, For example, we just select the distance from the centre of the Ottawa-Montreal cluster to Winnipeg. Updating the distance matrix, we now have one less cluster. Next, we look For the closest clusters once again. In this case, Ottawa-Montreal and Toronto are the closest ones, which creates another cluster. In the next step, the closest distance is between the Vancouver cluster and the Edmonton cluster. Forming a new cluster, their data in the matrix table gets updated. Essentially, the rows and columns are merged as the clusters are merged and the distance updated. This is a common way to implement this type of clustering, and has the benefit of caching distances between clusters. In the same way, agglomerative algorithm proceeds by merging clusters. And we repeat it until all clusters are merged and the tree becomes completed. It means, until all cities are clustered into a single cluster of size 6. 
+	"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/5-Clustering/Heirarchical_clustering_AgglomerativeC_dendogram_1.PNG"
+	- Hierarchical clustering is typically visualized as a dendrogram as shown on this slide. 
+	- Each merge is represented by a horizontal line. 
+	- The y-coordinate of the horizontal line is the similarity of the two clusters that were merged, where cities are viewed as singleton clusters. 
+	- By moving up from the bottom layer to the top node, a dendrogram allows us to reconstruct the history of merges that resulted in the depicted clustering. 
+	- Essentially, Hierarchical clustering does not require a pre-specified number of clusters.
+
 
 MORE ON HIERARCHICAL CLUSTERING
 
