@@ -446,7 +446,10 @@ They are: Toronto, Ottawa, Vancouver, Montreal, Winnipeg, and Edmonton. We const
 	- By moving up from the bottom layer to the top node, a dendrogram allows us to reconstruct the history of merges that resulted in the depicted clustering. 
 	- Essentially, Hierarchical clustering does not require a pre-specified number of clusters.
 
-
+	- However, in some applications we want a partition of disjoint clusters just as in flat clustering. 
+		In those cases, the hierarchy needs to be cut at some point. 
+		For example here, cutting in a specific level of similarity, we create 3 clusters of similar cities.
+   "https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/5-Clustering/Heirarchical_clustering_AgglomerativeC_dendogram_2.PNG"
 MORE ON HIERARCHICAL CLUSTERING
 
 LAB: HIERARCHICAL CLUSTERING
