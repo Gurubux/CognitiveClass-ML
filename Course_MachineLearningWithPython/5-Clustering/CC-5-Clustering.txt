@@ -450,7 +450,54 @@ They are: Toronto, Ottawa, Vancouver, Montreal, Winnipeg, and Edmonton. We const
 		In those cases, the hierarchy needs to be cut at some point. 
 		For example here, cutting in a specific level of similarity, we create 3 clusters of similar cities.
    "https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/5-Clustering/Heirarchical_clustering_AgglomerativeC_dendogram_2.PNG"
+
+
+
+
 MORE ON HIERARCHICAL CLUSTERING
+Agglomerative algorithm for Hierarchical Clustering. Remember that Agglomerative clustering is a bottom-up approach.
+Let’s say our dataset has n data points. 
+	1. "Create n clusters, one for each data point". Then each point is assigned as a cluster.
+	2. "Compute the distance/proximity matrix", which will be an n by n table.
+	3. REPEAT : (until the specified cluster number is reached, or until there is only one cluster left.)
+			i.  "MERGE the two nearest clusters". (Distances are computed already in the proximity matrix.)
+			ii. "UPDATE the proximity matrix" with the new values.
+	4. UNTIL only single cluster remains 
+
+So, in the proximity matrix, we have to measure the distances between clusters, and also merge the clusters that are “nearest.” So, the key operation is the computation of the proximity between the clusters with one point, and also clusters with multiple data points.
+
+A. "How do we measure the distances between these clusters and How do we define the ‘nearest’ among clusters?"
+B. "Which points do we use?"
+
+First, let’s see how to calculate the distance between 2 clusters with 1 point each. Let’s assume that we have a dataset of patients, and we want to cluster them using hierarchy clustering. So, our data points are patients, with a feature set of 3 dimensions. For example, Age, Body Mass Index (or BMI), and Blood Pressure. We can use different distance measurements to calculate the proximity matrix. For instance, Euclidean distance. So, if we have a dataset of n patients, we can build an n by n dissimilarly-distance matrix. It will give us the distance of clusters with 1 data point. 
+"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/5-Clustering/Heirarchical_clustering_AgglomerativeC_SimilarityMatrix.PNG"
+
+However, as mentioned, we merge clusters in Agglomerative clustering. Now, the question is, "How can we calculate the distance between clusters when there are multiple patients in each cluster?"
+"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/5-Clustering/Heirarchical_clustering_AgglomerativeC_SimilarityMatrix_betweenClusters.PNG"	
+
+
+	1. Single-linkage clustering
+		Minimum distance between clusters
+
+	2. Complete-linkage clustering
+		Maximum distance between clusters
+
+	3. Average-linkage clustering
+		Average distance between clusters
+
+	4. Centroid-linkage clustering
+		Distance between cluster centroids
+"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/5-Clustering/Heirarchical_Clustering_linkage.PNG"
+
+
+
+
+
+
+
+
+
+
 
 LAB: HIERARCHICAL CLUSTERING
 
