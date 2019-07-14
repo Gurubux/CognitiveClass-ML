@@ -487,10 +487,15 @@ However, as mentioned, we merge clusters in Agglomerative clustering. Now, the q
 
 	4. Centroid-linkage clustering
 		Distance between cluster centroids
+
 "https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/5-Clustering/Heirarchical_Clustering_linkage.PNG"
 
 
+Advantages - Disadvantages 
+	"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/5-Clustering/Heirarchical_clustering_Adv_DisAdv.PNG"
 
+Heirarchical Clustering vs Kmeans  
+	"https://raw.githubusercontent.com/Gurubux/CognitiveClass-ML/master/Course_MachineLearningWithPython/5-Clustering/Heirarchical_clustering_Vs_Kmeans.PNG"
 
 
 
