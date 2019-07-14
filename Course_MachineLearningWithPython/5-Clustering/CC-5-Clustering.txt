@@ -864,7 +864,7 @@ plt.xlabel('horsepow')
 plt.ylabel('mpg')
 
 Text(0, 0.5, 'mpg')
-
+"https://github.com/Gurubux/CognitiveClass-ML/blob/master/Course_MachineLearningWithPython/5-Clustering/Heirarchical_clustering_Scikit_scatter.png"
 As you can see, we are seeing the distribution of each cluster using the scatter plot, but it is not very clear where is the centroid of each cluster. Moreover, there are 2 types of vehicles in our dataset, "truck" (value of 0 in the type column) and "car" (value of 1 in the type column). So, we use them to distinguish the classes, and summarize the cluster. First we count the number of cases in each group:
 
 pdf.groupby(['cluster_','type'])['cluster_'].count()
@@ -882,6 +882,34 @@ cluster_	type
 			1.0			160.571429	3.071429	21.428571	21.527714
 		4	0.0			55.000000	1.000000	45.000000	9.235000
 		5	0.0			365.666667	6.233333	19.333333	66.010000
+
+It is obvious that we have 3 main clusters with the majority of vehicles in those.
+
+Cars:
+
+Cluster 1: with almost high mpg, and low in horsepower.
+Cluster 2: with good mpg and horsepower, but higher price than average.
+Cluster 3: with low mpg, high horsepower, highest price.
+Trucks:
+
+Cluster 1: with almost highest mpg among trucks, and lowest in horsepower and price.
+Cluster 2: with almost low mpg and medium horsepower, but higher price than average.
+Cluster 3: with good mpg and horsepower, low price.
+Please notice that we did not use type , and price of cars in the clustering process, but Hierarchical clustering could forge the clusters and discriminate them with quite high accuracy.
+
+plt.figure(figsize=(16,10))
+for color, label in zip(colors, cluster_labels):
+    subset = agg_cars.loc[(label,),]
+    for i in subset.index:
+        plt.text(subset.loc[i][0]+5, subset.loc[i][2], 'type='+str(int(i)) + ', price='+str(int(subset.loc[i][3]))+'k')
+    plt.scatter(subset.horsepow, subset.mpg, s=subset.price*20, c=color, label='cluster'+str(label))
+plt.legend()
+plt.title('Clusters')
+plt.xlabel('horsepow')
+plt.ylabel('mpg')
+"https://github.com/Gurubux/CognitiveClass-ML/blob/master/Course_MachineLearningWithPython/5-Clustering/Heirarchical_clustering_Scikit_scatter_1.png"
+
+
 
 **************************************************************************************
 DBSCAN CLUSTERING
