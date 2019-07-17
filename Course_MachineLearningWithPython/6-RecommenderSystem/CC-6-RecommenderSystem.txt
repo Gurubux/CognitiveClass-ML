@@ -235,7 +235,7 @@ Film-Noir              0.0
 
 
 #Now let's get the genres of every movie in our original dataframe
-genreTable = moviesWithGenres_df.set_index(moviesWithGenres_df                                                         ['movieId'])
+genreTable = moviesWithGenres_df.set_index(moviesWithGenres_df['movieId'])
 #And drop the unnecessary information
 genreTable = genreTable.drop('movieId', 1).drop('title', 1).drop('genres', 1).drop('year', 1)
 genreTable.head()
@@ -269,7 +269,7 @@ dtype: float64
 
 
 #The final recommendation table
-movies_df.loc                                                         [movies_df                                                         ['movieId'].isin(recommendationTable_df.head(20).keys())]
+movies_df.loc[movies_df['movieId'].isin(recommendationTable_df.head(20).keys())]
 
 
 	movieId		title													genres												year
