@@ -69,3 +69,8 @@ Pₘₑₐₙ 	-> All the parameters become 0 except intercept thus Pₘₑₐ�
 n 		-> Number of data points
 	
 	
+	t-stat   =  Coeff / Std Error
+
+	Leverage = 1/n + (xᵢ - x̄ )/(TSS)
+
+	Influence = Cook`s distance

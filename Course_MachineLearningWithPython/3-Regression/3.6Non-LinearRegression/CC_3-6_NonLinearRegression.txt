@@ -103,7 +103,7 @@ The second important questions is, “How should I model my data, if it displays
 
 
 --------------------------------------------------------------------------------------
-https://github.com/Gurubux/CognitiveClass-ML/blob/master/Course/3-Regression/3.6Non-LinearRegression/CC_3_6_NonLinearRegression.ipynb
+https://github.com/Gurubux/CognitiveClass-ML/blob/master/Course_MachineLearningWithPython/3-Regression/3.6Non-LinearRegression/CC_3_6_NonLinearRegression.ipynb
 
 How we find the best parameters for our fit line?
 we can use curve_fit which uses non-linear least squares to fit our sigmoid function, to data. Optimal values for the parameters so that the sum of the squared residuals of sigmoid(xdata, *popt) - ydata is minimized.
