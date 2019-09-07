@@ -77,13 +77,13 @@ movies_df.head()
 
 #Using regular expressions to find a year stored between parentheses
 #We specify the parantheses so we don't conflict with movies that have years in their titles
-movies_df                                                         ['year'] = movies_df.title.str.extract('(\(\d\d\d\d\))',expand=False)
+movies_df['year'] = movies_df.title.str.extract('(\(\d\d\d\d\))',expand=False)
 #Removing the parentheses
-movies_df                                                         ['year'] = movies_df.year.str.extract('(\d\d\d\d)',expand=False)
+movies_df['year'] = movies_df.year.str.extract('(\d\d\d\d)',expand=False)
 #Removing the years from the 'title' column
-movies_df                                                         ['title'] = movies_df.title.str.replace('(\(\d\d\d\d\))', '')
+movies_df['title'] = movies_df.title.str.replace('(\(\d\d\d\d\))', '')
 #Applying the strip function to get rid of any ending whitespace characters that may have appeared
-movies_df                                                         ['title'] = movies_df                                                         ['title'].apply(lambda x: x.strip())
+movies_df['title'] = movies_df                                                         ['title'].apply(lambda x: x.strip())
 movies_df.head()
 >>>
 	movieId	title						genres										year
@@ -170,7 +170,7 @@ inputMovies
 
 \Add movieId to input user
 #Filtering out the movies by title
-inputId = movies_df                                                         [movies_df                                                         ['title'].isin(inputMovies                                                         ['title'].tolist())]
+inputId = movies_df[movies_df['title'].isin(inputMovies['title'].tolist())]
 #Then merging it so we can get the movieId. It's implicitly merging it by title.
 inputMovies = pd.merge(inputId, inputMovies)
 #Dropping information we won't use from the input dataframe
@@ -188,7 +188,7 @@ inputMovies
 
 
 #Filtering out the movies from the input
-userMovies = moviesWithGenres_df                                                         [moviesWithGenres_df                                                         ['movieId'].isin(inputMovies                                                         ['movieId'].tolist())]
+userMovies = moviesWithGenres_df[moviesWithGenres_df['movieId'].isin(inputMovies['movieId'].tolist())]
 userMovies
 
 #Resetting the index to avoid future issues
@@ -208,7 +208,7 @@ inputMovies                                                         ['rating']
 
 
 #Dot produt to get weights
-userProfile = userGenreTable.transpose().dot(inputMovies                                                         ['rating'])
+userProfile = userGenreTable.transpose().dot(inputMovies['rating'])
 #The user profile
 userProfile
 Adventure             10.0

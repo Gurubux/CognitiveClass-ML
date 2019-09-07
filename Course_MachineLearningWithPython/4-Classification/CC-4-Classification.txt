@@ -67,6 +67,9 @@ K-NN Algorithm working :
 	3. Search for the K observations in the training data that are ‘nearest’ to the measurements of the unknown data point.
 	4. Predict the response of the unknown data point using the "most popular response" value from the K nearest neighbors.
 
+kNN algorithm can be used to estimate values for a continuous target.
+
+
 There are two parts in this algorithm that might be a bit confusing.
 	First, "how to select the correct K";
 	Second, "how to compute the similarity between cases", for example, among customers?

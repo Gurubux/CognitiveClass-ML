@@ -460,6 +460,16 @@ INTRODUCTION TO FOLIUM AND MAP STYLES
 MAPS WITH MARKERS 
 CHOROPLETH MAPS
 
+Folium
+
+Stamen toner map of Canada - Style is great for visualizing and exploring river meanders and coastal zones. 
+Stamen terrain - Style is great for visualizing hill shading and natural vegetation colors.
+folium.Map(location=[40.4637, -3.7492], zoom_start=6, tiles='Stamen Terrain')
+Mapbox bright - The result is a nice world map displaying the name of every country.
+
+A choropleth map is a thematic map in which areas are shaded or patterned in proportion to the measurement of the statistical variable being displayed on the map.
+
+Choropleth maps lab, you will need a GeoJSON file that marks the boundaries of the different neighborhoods in San Francisco. In order to save you the hassle of looking for the right file, I already downloaded it for you and I am making it available via this link: https://cocl.us/sanfran_geojson.
 ************************************************************************************************************
 jayrajasekharan,ehsanmkermani,slobodan-markovic,aklson
  Ehsan M. Kermani, and Slobodan Markovic  Alex Aklson
